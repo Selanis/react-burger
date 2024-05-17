@@ -1,0 +1,36 @@
+
+section {
+    width: 100%;
+    text-align: start;
+}
+
+.ingredient_change {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+
+.ingredient_change li {
+    width: calc(1/3*100%);
+    text-align: center;
+    border-bottom: 1px solid rgba(76, 76, 255, 1);
+    cursor: pointer;
+}
+
+.ingredients_container {
+    /* max-height: 664px; */
+    max-height: 716px;
+    height: 100%;
+    overflow-y: visible !important;
+    overflow-x: hidden;
+    scrollbar-color: rgba(133, 133, 173, 1) rgba(47, 47, 55, 1);
+    scrollbar-width: thin;
+}
+
+.ingredients_grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 24px;
+    row-gap: 32px;
+}

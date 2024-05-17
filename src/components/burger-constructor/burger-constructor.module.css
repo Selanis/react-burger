@@ -1,0 +1,20 @@
+
+.ingredients_list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 626px;
+    overflow: scroll;
+}
+
+.drag_div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.drag_div div:last-child {
+    margin-left: 8px;
+}
+
