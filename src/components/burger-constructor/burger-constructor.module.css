@@ -1,12 +1,3 @@
-
-.ingredients_list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    max-height: 626px;
-    overflow: scroll;
-}
-
 .drag_div {
     display: flex;
     flex-direction: row;
@@ -16,5 +7,15 @@
 
 .drag_div div:last-child {
     margin-left: 8px;
+}
+
+.scroll_Div {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 464px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(133, 133, 173, 1) rgba(47, 47, 55, 1);
 }
 
