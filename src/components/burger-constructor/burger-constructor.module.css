@@ -1,3 +1,14 @@
+.constructor {
+    max-width: 600px;
+    width: "100%"
+}
+
+.constructor__main_container {
+    display: flex; 
+    flex-direction: column; 
+    gap: 16px;
+}
+
 .drag_div {
     display: flex;
     flex-direction: row;
@@ -17,5 +28,12 @@
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: rgba(133, 133, 173, 1) rgba(47, 47, 55, 1);
+}
+
+.constructor__take_order {
+    display: flex; 
+    flex-direction: row; 
+    justify-content: flex-end; 
+    align-items: center;
 }
 

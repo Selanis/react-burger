@@ -7,7 +7,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerCard } from '../burger-card/burger-card';
 
 function BurgerIngredients(props) {
-    const {data, order} = props;
+    const {data} = props;
     const [current, setCurrent] = React.useState('one')
 
     return (
@@ -61,7 +61,7 @@ function BurgerIngredients(props) {
 BurgerIngredients.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
     // order: PropTypes.arrayOf(PropTypes.object).isRequired
-    order: PropTypes.arrayOf(PropTypes.object)
+    // order: PropTypes.arrayOf(PropTypes.object)
 }
 
 export { BurgerIngredients }
