@@ -1,0 +1,36 @@
+.modal {
+    composes: pr-10 pl-10 pb-15 pt-10 from global;
+    width: 100%;
+    max-width: 640px;
+    position: relative;
+    background: #1C1C21;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal__close {
+    width: 100%;
+    max-width: 640px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal__close p[style*="none"] + svg {
+    position: absolute;
+    right: 40px;
+    top: 60px;
+}
+
+.modal__close svg {
+    cursor: pointer;
+
+}
+
+.modal__text {
+    composes: text text_type_main-medium from global;
+    float: left;
+}
