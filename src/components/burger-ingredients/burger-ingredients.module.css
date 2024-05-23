@@ -4,6 +4,11 @@ section {
     text-align: start;
 }
 
+.tabs_ingredient {
+    composes: mt-5 from global;
+    display: flex;
+}
+
 .ingredient_change {
     list-style: none;
     display: flex;

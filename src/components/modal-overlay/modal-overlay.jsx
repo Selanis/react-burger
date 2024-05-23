@@ -3,7 +3,7 @@ import React from 'react'
 import { PropTypes } from "prop-types";
 import styles from './modal-overlay.module.css'
 
-const modalRoot = document.getElementById('root')
+const modalRoot = document.getElementById('modals')
 
 function ModalOverlay(props) {
     const { handleClickShowModal } = props
@@ -16,17 +16,17 @@ function ModalOverlay(props) {
     }
 
     React.useEffect(() => {
-        document.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', function escapeDownFunc(e) {
             e.code === 'Escape' && handleClickShowModal()
         })
 
         return (
-            document.removeEventListener('keydown', (e) => {
+            document.removeEventListener('keydown', function escapeDownFunc(e){
                 e.code === 'Escape' && handleClickShowModal()
             })
         )
         
-    })
+    }, [])
 
 
     return ReactDOM.createPortal (
