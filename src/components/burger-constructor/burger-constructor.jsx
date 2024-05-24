@@ -2,7 +2,6 @@ import styles from './burger-constructor.module.css';
 import { PropTypes } from "prop-types";
 import React from 'react';
 
-import { ModalOverlay } from '../modal-overlay/modal-overlay';
 import { Modal } from '../modal/modal';
 import { ConstructorElement, Button, CurrencyIcon, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { OrderDetails } from '../order-details/order-details';
@@ -17,11 +16,10 @@ function BurgerConstructor(props) {
 
     return (
         <section className={`pt-25 ${styles.constructor}`}>
-            { isModalShown && <> <ModalOverlay handleClickShowModal={ handleClickShowModal }>
+            { isModalShown && <>
                 <Modal handleClickShowModal={handleClickShowModal} type="order"> 
                     <OrderDetails />
-                </Modal>
-            </ModalOverlay></> }
+                </Modal></> }
 
             <div className={`pr-4 pl-4 ${styles.constructor__main_container}`}>
                 <div className={ styles.drag_div }>

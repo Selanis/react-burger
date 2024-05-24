@@ -6,14 +6,14 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 
 function Modal(props) {
-    const { children, type, handleClickShowModal } = props
+    const { children, title, handleClickShowModal } = props
 
     
     return (
         <ModalOverlay handleClickShowModal={ handleClickShowModal }>
             <div className={ styles.modal }>
                 <div className={ styles.modal__close }>
-                    <p className={ styles.modal__text } style={{display: type === "order" && "none"}}>Детали ингредиента</p>
+                    <p className={ styles.modal__text }>{ title }</p>
                     <CloseIcon onClick={ handleClickShowModal } type="primary" />
                 </div>
 
@@ -27,7 +27,7 @@ function Modal(props) {
 Modal.propTypes = {
     children: PropTypes.element.isRequired,
     handleClickShowModal: PropTypes.func.isRequired,
-    type: PropTypes.string
+    title: PropTypes.string
 }
 
 export { Modal }

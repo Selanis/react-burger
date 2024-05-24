@@ -15,17 +15,17 @@ function ModalOverlay(props) {
         }
     }
 
-    React.useEffect(() => {
-        document.addEventListener('keydown', function escapeDownFunc(e) {
-            e.code === 'Escape' && handleClickShowModal()
-        })
+    const escapeDownFunc = (event) => {
+        event.code === 'Escape' && handleClickShowModal()
+    }
 
-        return (
-            document.removeEventListener('keydown', function escapeDownFunc(e){
-                e.code === 'Escape' && handleClickShowModal()
-            })
+    React.useEffect(() => {
+        document.addEventListener('keydown', escapeDownFunc)
+
+        return (() => {
+                document.removeEventListener('keydown', escapeDownFunc)
+            }
         )
-        
     }, [])
 
 
