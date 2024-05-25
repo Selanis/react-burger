@@ -1,12 +1,26 @@
 import styles from './burger-constructor.module.css';
-import { ConstructorElement, Button, CurrencyIcon, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { PropTypes } from "prop-types";
+import React from 'react';
+
+import { Modal } from '../modal/modal';
+import { ConstructorElement, Button, CurrencyIcon, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { OrderDetails } from '../order-details/order-details';
 
 function BurgerConstructor(props) {
     const { order } = props
+    const [isModalShown, setIsModalShown] = React.useState(false)
+
+    const handleClickShowModal = (e) => {
+        setIsModalShown(!isModalShown);
+    }
 
     return (
         <section className={`pt-25 ${styles.constructor}`}>
+            { isModalShown && <>
+                <Modal handleClickShowModal={handleClickShowModal} type="order"> 
+                    <OrderDetails />
+                </Modal></> }
+
             <div className={`pr-4 pl-4 ${styles.constructor__main_container}`}>
                 <div className={ styles.drag_div }>
                     <ConstructorElement
@@ -45,7 +59,7 @@ function BurgerConstructor(props) {
             <div className={`mt-10 pr-4 pl-4 ${styles.constructor__take_order}`}>
                 <p className="text text_type_digits-medium pr-10">450 <CurrencyIcon type="primary" /></p>
 
-                <Button htmlType="button" type="primary" size="large">
+                <Button htmlType="button" type="primary" size="large" onClick={ handleClickShowModal } >
                     Оформить заказ
                 </Button>
             </div>
