@@ -3,18 +3,24 @@ import { PropTypes } from "prop-types";
 
 import { ModalOverlay } from '../modal-overlay/modal-overlay';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { HIDE_MODAL } from '../../services/actions/modal-action'
+import { useDispatch } from 'react-redux';
 
 
 function Modal(props) {
-    const { children, title, handleClickShowModal } = props
-
+    const { children, title } = props
+    const dispatch = useDispatch()
     
     return (
-        <ModalOverlay handleClickShowModal={ handleClickShowModal }>
+        <ModalOverlay>
             <div className={ styles.modal }>
                 <div className={ styles.modal__close }>
                     <p className={ styles.modal__text }>{ title }</p>
-                    <CloseIcon onClick={ handleClickShowModal } type="primary" />
+                    <CloseIcon onClick={ () => {
+                        dispatch({
+                            type: HIDE_MODAL,
+                        })
+                    } } type="primary" />
                 </div>
 
                 { children }
@@ -26,7 +32,6 @@ function Modal(props) {
 
 Modal.propTypes = {
     children: PropTypes.element.isRequired,
-    handleClickShowModal: PropTypes.func.isRequired,
     title: PropTypes.string
 }
 

@@ -1,34 +1,68 @@
 import styles from './burger-ingredients.module.css';
-import React from 'react';
-import { PropTypes } from "prop-types";
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 
-import { ingredientType } from '../../utils/types'
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerCard } from '../burger-card/burger-card';
+import { SET_INGREDIENT_TAB } from '../../services/actions/ingredients-actions';
 
+function BurgerIngredients() {
+    const { data, current } = useSelector((store) => ({
+        data: store.getIngredients.data,
+        current: store.getIngredients.currentTab
+    }), shallowEqual)
+    const dispatch = useDispatch()
 
-function BurgerIngredients(props) {
-    const {data} = props;
-    const [current, setCurrent] = React.useState('one')
+    const scrollTabs = (e) => {
+        const positionBun = document.getElementById("bunsTab").getBoundingClientRect().y
+        const positionSouce = document.getElementById("souceTab").getBoundingClientRect().y
+        const positionMain = document.getElementById("mainTab").getBoundingClientRect().y
+
+        switch (Math.min(Math.abs(360 - positionBun), Math.abs(360 - positionSouce), Math.abs(360 - positionMain))) {
+            case Math.abs(360 - positionBun): 
+                dispatch({
+                    type: SET_INGREDIENT_TAB,
+                    currentTab: "one"
+                })
+                break;
+            case Math.abs(360 - positionSouce): 
+                dispatch({
+                    type: SET_INGREDIENT_TAB,
+                    currentTab: "two"
+                })
+                break;
+            case Math.abs(360 - positionMain): 
+                dispatch({
+                    type: SET_INGREDIENT_TAB,
+                    currentTab: "three"
+                })
+                break;
+            default:
+                dispatch({
+                    type: SET_INGREDIENT_TAB,
+                    currentTab: "one"
+                })
+                break;
+        }
+    }
     
     return (
         <section>
             <h1 className="text text_type_main-large mt-10 " id='text'>Соберите бургер</h1>
 
             <div className={ styles.tabs_ingredient }>
-                <Tab value="one" active={current === 'one'} onClick={setCurrent}>
+                <Tab value="one" active={current === 'one'}>
                     Булки
                 </Tab>
-                <Tab value="two" active={current === 'two'} onClick={setCurrent}>
+                <Tab value="two" active={current === 'two'}>
                     Соусы
                 </Tab>
-                <Tab value="three" active={current === 'three'} onClick={setCurrent}>
+                <Tab value="three" active={current === 'three'}>
                     Начинки
                 </Tab>
             </div>
 
-            <div className={`${styles.ingredients_container} custom-scroll mt-10 pb-13`}>
-                <h2 className="text text_type_main-medium mb-6">Булки</h2>
+            <div className={`${styles.ingredients_container} custom-scroll mt-10 pb-13`} onScroll={scrollTabs}>
+                <h2 className="text text_type_main-medium mb-6" id="bunsTab">Булки</h2>
 
                 <div className={`${styles.ingredients_grid} pl-4 pr-4`}>
                     { data.map( (item) => (
@@ -37,7 +71,7 @@ function BurgerIngredients(props) {
                     
                 </div>
 
-                <h2 className="text text_type_main-medium mt-10 mb-6">Соусы</h2>
+                <h2 className="text text_type_main-medium mt-10 mb-6" id="souceTab">Соусы</h2>
 
                 <div className={`${styles.ingredients_grid} pl-4 pr-4`}>
                     { data.map( (item) => (
@@ -46,7 +80,7 @@ function BurgerIngredients(props) {
                     
                 </div>
 
-                <h2 className="text text_type_main-medium mt-10 mb-6">Начинки</h2>
+                <h2 className="text text_type_main-medium mt-10 mb-6" id="mainTab">Начинки</h2>
 
                 <div className={`${styles.ingredients_grid} pl-4 pr-4`}>
                     { data.map( (item) => (
@@ -57,10 +91,6 @@ function BurgerIngredients(props) {
             </div>
         </section>
     )
-}
-
-BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(ingredientType).isRequired,
 }
 
 export { BurgerIngredients }
