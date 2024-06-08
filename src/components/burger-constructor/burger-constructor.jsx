@@ -1,5 +1,5 @@
 import styles from './burger-constructor.module.css';
-import { useMemo, useCallback } from 'react';
+import { useMemo } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { useDrop } from "react-dnd";
 
@@ -9,6 +9,7 @@ import { CHANGE_BUN, addIngredient } from '../../services/actions/constructor-ac
 import { SHOW_MODAL } from '../../services/actions/modal-action';
 import { DragItem } from './constructor-drag';
 import { takeOrder } from '../../services/actions/take-order-action';
+import { totalPrice } from '../../utils/totalPrice';
 
 function BurgerConstructor() {
     const dispatch = useDispatch()
@@ -16,12 +17,8 @@ function BurgerConstructor() {
         order: store.constructorReducer.order,
         bun: store.constructorReducer.bun,
     }), shallowEqual)
-
     
-
-    const totalPrice = useMemo(()=> {
-        return (order.length && bun) ? bun.price * 2 + order.reduce((acc, item) => acc + item.ingredient.price, 0) : (order.length && !bun) ? order.reduce((acc, item) => acc + item.ingredient.price, 0) : (!order.length && bun) ? bun.price * 2 : 0
-    }, [order, bun])
+    const totalPriceCounter = useMemo( () => { return totalPrice(order, bun) }, [order, bun] )
 
     const [{ isHover } , dropRef] = useDrop({
         accept: "ingredient",
@@ -42,11 +39,11 @@ function BurgerConstructor() {
         border: "2px solid #4C4CFF"
     } : {}
 
-    const dragItem = useCallback((orderItem, index) => {
+    const dragItem = (orderItem, index) => {
         return (
             <DragItem item={ orderItem } key={ orderItem.key } index={index} />
         )
-    }, [])
+    }
 
     const takeOrderButton = () => {
         dispatch({
@@ -115,7 +112,7 @@ function BurgerConstructor() {
             </div>
 
             <div className={`mt-10 pr-4 pl-4 ${styles.constructor__take_order}`}>
-                <p className="text text_type_digits-medium pr-10">{ totalPrice } <CurrencyIcon type="primary" /></p>
+                <p className="text text_type_digits-medium pr-10">{ totalPriceCounter } <CurrencyIcon type="primary" /></p>
 
                 <Button htmlType="button" type="primary" size="large" onClick={ () => {
                     (order.length && bun) ? (

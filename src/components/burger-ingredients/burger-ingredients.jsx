@@ -13,24 +13,30 @@ function BurgerIngredients() {
     const dispatch = useDispatch()
 
     const scrollTabs = (e) => {
-        const positionBun = document.getElementById("bunsTab").getBoundingClientRect().y
-        const positionSouce = document.getElementById("souceTab").getBoundingClientRect().y
-        const positionMain = document.getElementById("mainTab").getBoundingClientRect().y
+        const positionContainer = document.getElementById('ingredients_container').getBoundingClientRect().y
+        
+        const positionBun = positionContainer - document.getElementById("bunsTab").getBoundingClientRect().y
+        const positionSouce = positionContainer - document.getElementById("souceTab").getBoundingClientRect().y
+        const positionMain = positionContainer - document.getElementById("mainTab").getBoundingClientRect().y
 
-        switch (Math.min(Math.abs(360 - positionBun), Math.abs(360 - positionSouce), Math.abs(360 - positionMain))) {
-            case Math.abs(360 - positionBun): 
+        switch (Math.min(
+            Math.abs(positionBun), 
+            Math.abs(positionSouce), 
+            Math.abs(positionMain)
+        )) {
+            case Math.abs(positionBun): 
                 dispatch({
                     type: SET_INGREDIENT_TAB,
                     currentTab: "one"
                 })
                 break;
-            case Math.abs(360 - positionSouce): 
+            case Math.abs(positionSouce): 
                 dispatch({
                     type: SET_INGREDIENT_TAB,
                     currentTab: "two"
                 })
                 break;
-            case Math.abs(360 - positionMain): 
+            case Math.abs(positionMain): 
                 dispatch({
                     type: SET_INGREDIENT_TAB,
                     currentTab: "three"
@@ -61,7 +67,7 @@ function BurgerIngredients() {
                 </Tab>
             </div>
 
-            <div className={`${styles.ingredients_container} custom-scroll mt-10 pb-13`} onScroll={scrollTabs}>
+            <div className={`${styles.ingredients_container} custom-scroll mt-10 pb-13`} onScroll={scrollTabs}  id="ingredients_container">
                 <h2 className="text text_type_main-medium mb-6" id="bunsTab">Булки</h2>
 
                 <div className={`${styles.ingredients_grid} pl-4 pr-4`}>
