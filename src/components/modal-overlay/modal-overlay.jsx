@@ -1,22 +1,29 @@
 import ReactDOM from 'react-dom'
 import React from 'react'
-import { PropTypes } from "prop-types";
 import styles from './modal-overlay.module.css'
+import { useDispatch } from 'react-redux';
+import { PropTypes } from "prop-types";
+
+import { HIDE_MODAL } from '../../services/actions/modal-action'
 
 const modalRoot = document.getElementById('modals')
 
 function ModalOverlay(props) {
-    const { handleClickShowModal } = props
+    const dispatch = useDispatch();
 
     const handleClose = (e) => {
         
         if (e.target.tagName === "SECTION" | e.target.tagName === "svg") {
-            handleClickShowModal()
+            dispatch({
+                type: HIDE_MODAL,
+            })
         }
     }
 
     const escapeDownFunc = (event) => {
-        event.code === 'Escape' && handleClickShowModal()
+        event.code === 'Escape' && dispatch({
+            type: HIDE_MODAL,
+        })
     }
 
     React.useEffect(() => {
@@ -38,7 +45,7 @@ function ModalOverlay(props) {
 }
 
 ModalOverlay.propTypes = {
-    handleClickShowModal: PropTypes.func.isRequired
+    children: PropTypes.element.isRequired,
 }
 
 export { ModalOverlay }
