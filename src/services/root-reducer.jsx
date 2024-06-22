@@ -5,6 +5,10 @@ import { getIngredients } from './reducers/ingredients-reducer';
 import { constructorReducer } from './reducers/constructor-reducer';
 import { modalReducer } from './reducers/modal-reducer';
 import { takeOrderReducer } from './reducers/take-order-reducer';
+import { forgotReducer } from './reducers/forgot-password-reducer';
+import { registerReducer } from './reducers/register-reducer';
+import { loginInfo } from './reducers/login-reducer';
+import { resetReducer } from './reducers/reset-password-reducer';
 
 export const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ 
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) 
@@ -16,6 +20,10 @@ export const rootReducer = combineReducers({
     getIngredients,
     constructorReducer,
     modalReducer,
-    takeOrderReducer
+    takeOrderReducer,
+    forgotReducer,
+    resetReducer,
+    registerReducer,
+    loginInfo    
 })
 

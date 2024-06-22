@@ -1,0 +1,34 @@
+.profile_main {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative;
+    top: 10vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.profile_tabs {
+    composes: pl-4 from global;
+    max-width: 320px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile_tabs a {
+    line-height: 64px;
+}
+
+.profile_tabs a:link {
+    text-decoration: none;
+}
+
+.profile_tabs a:not([class*="text_color_inactive"]):visited {
+    color: white;
+}
+
+.profile_tabs p {
+    opacity: 0.5;
+}
