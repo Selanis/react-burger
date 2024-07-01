@@ -47,11 +47,11 @@ export function loginRequest(email, password) {
                 dispatch({
                     type: SET_LOGIN_INFO,
                     user: res.user,
-                    authorization: res.accessToken.slice(6)
+                    authorization: true
                 })
 
                 localStorage.setItem('refreshToken', res.refreshToken)
-                localStorage.setItem('accessToken', res.accessToken.slice(6))
+                localStorage.setItem('accessToken', res.accessToken)
             } else {
                 dispatch({
                     type: LOGIN_FAILED

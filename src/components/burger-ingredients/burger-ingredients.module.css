@@ -39,3 +39,12 @@ section {
     column-gap: 24px;
     row-gap: 32px;
 }
+
+.ingredients_grid a:link {
+    color: white;
+    text-decoration: none;
+}
+
+.ingredients_grid a:visited {
+    color: white;
+}

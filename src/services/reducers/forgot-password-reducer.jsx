@@ -6,7 +6,7 @@ const initialState = {
     isSuccess: false,
     isFailed: false,
 
-    response: {}
+    response: null
 }
 
 export const forgotReducer = (state=initialState, action) => {

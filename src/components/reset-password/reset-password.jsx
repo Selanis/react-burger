@@ -5,11 +5,11 @@ import styles from './reset-password.module.css'
 import { Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { resetRequest } from '../../services/actions/reset-password-action';
-import { SET_FORGOT_INITIAL } from '../../services/actions/forgot-password-action';
 
 export function ResetPassword() {
     const dispatch = useDispatch();
     const success = useSelector(state => state.resetReducer.response ? state.resetReducer.response.success : false);
+    const forgotSuccess = useSelector(state => state.forgotReducer.response ? state.forgotReducer.response.success : false);
 
     const [code, setCode] = React.useState('')
     const [password, setPassword] = React.useState('')
@@ -19,12 +19,6 @@ export function ResetPassword() {
         setTimeout(() => inputRef.current.focus(), 0)
         alert('Icon Click Callback')
     }
-
-    React.useEffect(() => {
-        dispatch({
-            type: SET_FORGOT_INITIAL
-        })
-    }, [dispatch])
 
     const onChange = e => {
         setPassword(e.target.value)
@@ -72,6 +66,7 @@ export function ResetPassword() {
             </div>
 
             { success && <Navigate to="/" /> }
+            { !forgotSuccess && <Navigate to="/forgot-password" /> }
         </main>
     )
 }

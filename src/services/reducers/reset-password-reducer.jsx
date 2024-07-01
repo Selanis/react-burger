@@ -6,7 +6,7 @@ const initialState = {
     isRequest: false,
     isFailed: false,
 
-    response: {}
+    response: null
 }
 
 export const resetReducer = (state=initialState, action) => {

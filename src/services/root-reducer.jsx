@@ -9,6 +9,7 @@ import { forgotReducer } from './reducers/forgot-password-reducer';
 import { registerReducer } from './reducers/register-reducer';
 import { loginInfo } from './reducers/login-reducer';
 import { resetReducer } from './reducers/reset-password-reducer';
+import { tokenReducer } from './reducers/token-reducer'; 
 
 export const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ 
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) 
@@ -24,6 +25,7 @@ export const rootReducer = combineReducers({
     forgotReducer,
     resetReducer,
     registerReducer,
-    loginInfo    
+    loginInfo,
+    tokenReducer    
 })
 

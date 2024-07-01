@@ -4,7 +4,7 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import styles from './forgot-password.module.css'
 import { Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { passwordRequest } from '../../services/actions/forgot-password-action';
+import { SET_FORGOT_INITIAL, passwordRequest } from '../../services/actions/forgot-password-action';
 
 export function ForgotPassword() {
     const dispatch = useDispatch();
@@ -21,6 +21,12 @@ export function ForgotPassword() {
     const submitForm = () => {
         dispatch( passwordRequest(email) )
     }
+
+    React.useEffect(() => {
+        dispatch({
+            type: SET_FORGOT_INITIAL
+        })
+    }, [dispatch])
 
     return (
         <main className={ styles.main_forgot_password }>

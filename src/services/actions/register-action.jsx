@@ -46,7 +46,7 @@ export function registerRequest(email, name, password) {
                 dispatch({
                     type: SET_LOGIN_INFO,
                     user: res.user,
-                    authorization: res.accessToken.slice(6)
+                    authorization: res.accessToken
                 })
 
                 localStorage.setItem('refreshToken', res.refreshToken)

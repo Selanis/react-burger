@@ -2,8 +2,7 @@
 import { SET_LOGIN_INFO, LOGIN_FAILED, LOGIN_REQUEST, LOGIN_SUCCESS, SET_LOGIN_INITIAL } from "../actions/login-action";
 
 const initialState = {
-    userInfo: {},
-    authorization: '',
+    userInfo: null,
 
     isRequest: false,
     isSuccess: false,
@@ -15,8 +14,7 @@ export function loginInfo(state=initialState, action) {
         case SET_LOGIN_INFO: {
             return {
                 ...state,
-                userInfo: action.user,
-                authorization: action.acceptToken
+                userInfo: action.user
             }
         }
 

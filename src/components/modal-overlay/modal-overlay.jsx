@@ -5,15 +5,18 @@ import { useDispatch } from 'react-redux';
 import { PropTypes } from "prop-types";
 
 import { HIDE_MODAL } from '../../services/actions/modal-action'
+import { useNavigate } from 'react-router-dom';
 
 const modalRoot = document.getElementById('modals')
 
 function ModalOverlay(props) {
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     const handleClose = (e) => {
         
         if (e.target.tagName === "SECTION" | e.target.tagName === "svg") {
+            navigate("/");
             dispatch({
                 type: HIDE_MODAL,
             })
@@ -21,9 +24,12 @@ function ModalOverlay(props) {
     }
 
     const escapeDownFunc = (event) => {
-        event.code === 'Escape' && dispatch({
-            type: HIDE_MODAL,
-        })
+        if (event.code === 'Escape') { 
+            navigate("/");
+            dispatch({
+                type: HIDE_MODAL,
+            });
+        }
     }
 
     React.useEffect(() => {

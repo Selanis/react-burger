@@ -10,7 +10,7 @@ export function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const userInfo = useSelector(state => state.loginInfo.userInfo.email)
+    const userInfo = useSelector(state => state.loginInfo.userInfo ? state.loginInfo.userInfo.email : null)
 
     const [login, setLogin] = React.useState('')
     const [password, setPassword] = React.useState('')

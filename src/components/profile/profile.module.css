@@ -32,3 +32,9 @@
 .profile_tabs p {
     opacity: 0.5;
 }
+
+.profile_buttons {
+    composes: mt-10 from global;
+    max-width: 380px;
+    float: right;
+}

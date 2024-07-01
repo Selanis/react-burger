@@ -9,7 +9,7 @@ import { registerRequest } from '../../services/actions/register-action';
 
 export function Register() {
     const dispatch = useDispatch();
-    const userInfo = useSelector(state => state.loginInfo.userInfo.email)
+    const userInfo = useSelector(state => state.loginInfo.userInfo ? state.loginInfo.userInfo.email : null)
 
     const [login, setLogin] = React.useState('')
     const [name, setName] = React.useState('')

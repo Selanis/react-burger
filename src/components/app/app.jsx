@@ -8,6 +8,9 @@ import { AppHeader } from '../app-header/app-header';
 import { Modal } from '../modal/modal';
 import { getIngredientsRequest } from '../../services/actions/ingredients-actions';
 import { Login, MainConstructor, Register, ForgotPassword, ResetPassword, Profile } from '../../pages/index'
+import { OnlyAuth, OnlyUnAuth } from '../protected-route-element/protected-route-element';
+import { getUserInfo } from '../../services/actions/token-action';
+import { IngredientPage } from '../ingredient-page/ingredient-page';
 
 function App() {
   const dispatch = useDispatch();
@@ -19,7 +22,14 @@ function App() {
   }), shallowEqual)
 
   React.useEffect(() => {
-    dispatch( getIngredientsRequest() )
+    dispatch( getIngredientsRequest() );
+    
+  }, [dispatch])
+
+  React.useEffect(() => {
+    if (localStorage.getItem("refreshToken")) {
+      dispatch( getUserInfo() );
+    }
   }, [dispatch])
 
   return (
@@ -33,14 +43,20 @@ function App() {
 
         <AppHeader />
         <Routes>
-          <Route path="/" element={ <MainConstructor /> } />
-          <Route path="/login" element={ <Login /> } />
-          <Route path="/register" element={ <Register /> } />
-          <Route path="/forgot-password" element={ <ForgotPassword /> } />
-          <Route path="/reset-password" element={ <ResetPassword /> } />
-          <Route path="/profile" element={ <Profile /> } />
-          <Route path="/profile/order" element={ <>Order</> } />
-          <Route path="/profile/order/:number" element={ <>Order :Number</> } />
+          <Route path="/" element={  <MainConstructor /> }>
+            <Route path={modalShown ? "/ingredients/:id" : "ingredientsNone"} element={ 
+              <><Modal title={ title } > 
+                  { modalItem }
+              </Modal></> } />
+          </Route>
+          <Route path="/login" element={ <OnlyUnAuth component={ <Login /> } /> } />
+          <Route path="/register" element={ <OnlyUnAuth component={ <Register /> } /> } />
+          <Route path="/forgot-password" element={ <OnlyUnAuth component={ <ForgotPassword /> } /> } />
+          <Route path="/reset-password" element={ <OnlyUnAuth component={ <ResetPassword /> } /> } />
+          <Route path="/profile" element={ <OnlyAuth component={ <Profile /> } /> } />
+          <Route path="/profile/order" element={ <OnlyAuth component={ <>Order</> } /> } />
+          <Route path="/profile/order/:number" element={ <OnlyAuth component={ <>Order :Number</> } /> } />
+          <Route path={!modalShown ? "/ingredients/:id" : "ingredientsNone"} element={<IngredientPage />} /> 
         </Routes>
       </Router>
     </div>
