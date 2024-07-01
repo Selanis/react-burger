@@ -23,14 +23,14 @@ export function takeOrder(order, bun) {
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
-        "ingredients": ingredientId
+            "ingredients": ingredientId
         });
 
         var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
         };
 
         fetch(API_URL_ORDER, requestOptions)

@@ -5,6 +5,7 @@
 
 .app {
   text-align: center;
+  position: relative;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -23,11 +24,3 @@
   /* font-size: calc(10px + 2vmin); */
   color: white;
 }
-
-.burger_container {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(600px, 100px));
-  column-gap: 40px;
-  justify-content: center;
-}
-

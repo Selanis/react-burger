@@ -7,6 +7,7 @@ import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-c
 import { IngredientDetails } from '../ingredient-details/ingredient-details' 
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { SHOW_MODAL } from '../../services/actions/modal-action';
+import { Link } from 'react-router-dom';
 
 function BurgerCard(props) {
     const { item } = props;
@@ -33,7 +34,7 @@ function BurgerCard(props) {
     }, [order, bun, item._id, item.type])
 
     return (
-        <>
+        <Link to={`ingredients/${item._id}`}>
             <div className={ styles.burger_main } onClick={ () => {
                 dispatch({
                     type: SHOW_MODAL,
@@ -49,7 +50,7 @@ function BurgerCard(props) {
                 <h3 className={`text text_type_digits-default mt-1 mb-1 ${ styles.price }`}>{ item.price }&nbsp;<CurrencyIcon type="primary" /></h3>
                 <p className={`text text_type_main-default ${styles.burger_main__text}`}>{ item.name }</p>
             </div>
-        </>
+        </Link>
         
     )
 }

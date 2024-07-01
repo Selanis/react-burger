@@ -1,18 +1,20 @@
 import React from 'react';
 import styles from  './app.module.css';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { AppHeader } from '../app-header/app-header';
-import { BurgerIngredients } from '../burger-ingredients/burger-ingredients';
+
 import { Modal } from '../modal/modal';
-import { BurgerConstructor } from '../burger-constructor/burger-constructor'; 
 import { getIngredientsRequest } from '../../services/actions/ingredients-actions';
+import { Login, MainConstructor, Register, ForgotPassword, ResetPassword, Profile } from '../../pages/index'
+import { OnlyAuth, OnlyUnAuth } from '../protected-route-element/protected-route-element';
+import { getUserInfo } from '../../services/actions/token-action';
+import { IngredientPage } from '../ingredient-page/ingredient-page';
 
 function App() {
   const dispatch = useDispatch();
-  const { isLoading, modalShown, modalItem, title } = useSelector(state => ({
+  const { modalShown, modalItem, title } = useSelector(state => ({
     isLoading: state.getIngredients.isLoading,
     modalShown: state.modalReducer.isModal,
     modalItem: state.modalReducer.modalItem,
@@ -20,23 +22,43 @@ function App() {
   }), shallowEqual)
 
   React.useEffect(() => {
-    dispatch( getIngredientsRequest() )
+    dispatch( getIngredientsRequest() );
+    
+  }, [dispatch])
+
+  React.useEffect(() => {
+    if (localStorage.getItem("refreshToken")) {
+      dispatch( getUserInfo() );
+    }
   }, [dispatch])
 
   return (
     <div className={styles.app}>
+      <Router>
         { modalShown && <>
           <Modal title={ title } > 
               { modalItem }
           </Modal></> 
         }
+
         <AppHeader />
-        <DndProvider backend={HTML5Backend}>
-          <main className={styles.burger_container}>
-            { isLoading ? <BurgerIngredients /> : <p className='text text_type_main-default text_color_inactive'>Загрузка...</p>}
-            <BurgerConstructor />
-          </main>
-        </DndProvider>
+        <Routes>
+          <Route path="/" element={  <MainConstructor /> }>
+            <Route path={modalShown ? "/ingredients/:id" : "ingredientsNone"} element={ 
+              <><Modal title={ title } > 
+                  { modalItem }
+              </Modal></> } />
+          </Route>
+          <Route path="/login" element={ <OnlyUnAuth component={ <Login /> } /> } />
+          <Route path="/register" element={ <OnlyUnAuth component={ <Register /> } /> } />
+          <Route path="/forgot-password" element={ <OnlyUnAuth component={ <ForgotPassword /> } /> } />
+          <Route path="/reset-password" element={ <OnlyUnAuth component={ <ResetPassword /> } /> } />
+          <Route path="/profile" element={ <OnlyAuth component={ <Profile /> } /> } />
+          <Route path="/profile/order" element={ <OnlyAuth component={ <>Order</> } /> } />
+          <Route path="/profile/order/:number" element={ <OnlyAuth component={ <>Order :Number</> } /> } />
+          <Route path={!modalShown ? "/ingredients/:id" : "ingredientsNone"} element={<IngredientPage />} /> 
+        </Routes>
+      </Router>
     </div>
   );
 }

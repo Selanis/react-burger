@@ -1,0 +1,9 @@
+
+
+.burger_container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(600px, 100px));
+    column-gap: 40px;
+    justify-content: center;
+}
+
