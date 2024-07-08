@@ -13,16 +13,16 @@ export function registerRequest(email, name, password) {
             type: REGISTER_REQUEST
         })
 
-        var myHeaders = new Headers();
+        const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
-        var raw = JSON.stringify({
+        const raw = JSON.stringify({
             "email": email,
             "password": password,
             "name": name
         });
 
-        var requestOptions = {
+        const requestOptions = {
             method: 'POST',
             headers: myHeaders,
             body: raw,

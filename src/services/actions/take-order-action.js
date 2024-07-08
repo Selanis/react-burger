@@ -19,15 +19,15 @@ export function takeOrder(order, bun) {
         })
 
         // Запросик на заказ (с помощью постмена)
-        var myHeaders = new Headers();
+        const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", localStorage.getItem("accessToken"));
 
-        var raw = JSON.stringify({
+        const raw = JSON.stringify({
             "ingredients": ingredientId
         });
 
-        var requestOptions = {
+        const requestOptions = {
             method: 'POST',
             headers: myHeaders,
             body: raw,

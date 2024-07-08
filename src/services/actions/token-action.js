@@ -11,10 +11,10 @@ export const updateToken = (afterError) => {
     return function(dispatch) {
         const refreshToken = localStorage.getItem("refreshToken")
 
-        var myHeaders = new Headers();
+        const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
-        var raw = JSON.stringify({
+        const raw = JSON.stringify({
             "token": refreshToken
         });
 
@@ -22,7 +22,7 @@ export const updateToken = (afterError) => {
             type: SET_AUTHORIZATION_REQUEST
         })
 
-        var requestOptions = {
+        const requestOptions = {
             method: 'POST',
             headers: myHeaders,
             body: raw,
@@ -65,11 +65,11 @@ export const getUserInfo = () => {
             type: SET_AUTHORIZATION_REQUEST
         })
 
-        var myHeaders = new Headers();
+        const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("authorization", localStorage.getItem("accessToken"));
 
-        var requestOptions = {
+        const requestOptions = {
             method: 'GET',
             headers: myHeaders,
             redirect: 'follow'
@@ -115,14 +115,14 @@ export const logout = () => {
             type: SET_AUTHORIZATION_REQUEST
         })
 
-        var myHeaders = new Headers();
+        const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
-        var raw = JSON.stringify({
+        const raw = JSON.stringify({
             "token": localStorage.getItem("refreshToken")
         });
 
-        var requestOptions = {
+        const requestOptions = {
             method: 'POST',
             headers: myHeaders,
             redirect: 'follow',
@@ -163,16 +163,16 @@ export const logout = () => {
 
 export const updateLogin = (name, login) => {
     return function(dispatch) {
-        var myHeaders = new Headers();
+        const myHeaders = new Headers();
         myHeaders.append("authorization", localStorage.getItem("accessToken"));
         myHeaders.append("Content-Type", "application/json");
 
-        var raw = JSON.stringify({
+        const raw = JSON.stringify({
             "name": name,
             "login": login
         });
 
-        var requestOptions = {
+        const requestOptions = {
             method: 'PATCH',
             headers: myHeaders,
             body: raw,

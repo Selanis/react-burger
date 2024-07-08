@@ -15,7 +15,6 @@ import { IngredientPage } from '../ingredient-page/ingredient-page';
 function App() {
   const dispatch = useDispatch();
   const { modalShown, modalItem, title } = useSelector(state => ({
-    isLoading: state.getIngredients.isLoading,
     modalShown: state.modalReducer.isModal,
     modalItem: state.modalReducer.modalItem,
     title: state.modalReducer.title
@@ -23,10 +22,7 @@ function App() {
 
   React.useEffect(() => {
     dispatch( getIngredientsRequest() );
-    
-  }, [dispatch])
 
-  React.useEffect(() => {
     if (localStorage.getItem("refreshToken")) {
       dispatch( getUserInfo() );
     }

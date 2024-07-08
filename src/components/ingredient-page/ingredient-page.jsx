@@ -1,10 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import styles from './ingredient-page.module.css'
 
 import { useParams } from 'react-router-dom';
-import { getIngredientsRequest } from '../../services/actions/ingredients-actions';
-
 
 function IngredientPage() {
     const param = useParams();
