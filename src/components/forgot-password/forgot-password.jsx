@@ -18,7 +18,8 @@ export function ForgotPassword() {
         alert('Icon Click Callback')
     }
 
-    const submitForm = () => {
+    const submitForm = (e) => {
+        e.preventDefault()
         dispatch( passwordRequest(email) )
     }
 
@@ -31,7 +32,7 @@ export function ForgotPassword() {
     return (
         <main className={ styles.main_forgot_password }>
             <div className={ styles.forgot_password_container }>
-                <form>
+                <form onSubmit={ submitForm }>
                     <p className="text text_type_main-medium">Восстановление пароля</p>
 
                     <Input
@@ -47,7 +48,7 @@ export function ForgotPassword() {
                         value={email}
                     />
 
-                    <Button htmlType="button" type="primary" size="medium" extraClass="mt-6" onClick={ submitForm }>
+                    <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6">
                         Восстановить
                     </Button>
                 </form>

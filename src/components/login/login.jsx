@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 import styles from "./login.module.css";
 import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 export function Login() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const userInfo = useSelector(state => state.loginInfo.userInfo ? state.loginInfo.userInfo.email : null)
 
@@ -25,7 +24,8 @@ export function Login() {
         setPassword(e.target.value)
     }
 
-    const formSubmit = async () => {
+    const formSubmit = async (e) => {
+        e.preventDefault();
         dispatch( loginRequest(login, password) )
     }
 
@@ -34,7 +34,7 @@ export function Login() {
             { userInfo && <Navigate to='/' /> }
 
             <div className={ styles.login_container }>
-                <form>
+                <form onSubmit={ formSubmit }>
                     <p className="text text_type_main-medium">Вход</p>
 
                     <Input
@@ -58,7 +58,8 @@ export function Login() {
                         extraClass="mt-6"
                     />
 
-                    <Button htmlType="button" type="primary" size="medium" extraClass="mt-6" onClick={ formSubmit }>
+
+                    <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6">
                         Войти
                     </Button>
                 </form>

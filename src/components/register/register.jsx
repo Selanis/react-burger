@@ -1,6 +1,6 @@
 import styles from './register.module.css';
-import React, { useMemo } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link, Navigate } from "react-router-dom";
 
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,7 +25,8 @@ export function Register() {
         setPassword(e.target.value)
     }
 
-    const submitForm = () => {
+    const submitForm = (e) => {
+        e.preventDefault()
         dispatch( registerRequest(login, name, password) )
     }
 
@@ -35,7 +36,7 @@ export function Register() {
             { userInfo && <Navigate to='/' /> }
 
             <div className={ styles.register_container }>
-                <form>
+                <form onSubmit={ submitForm }>
                     <p className="text text_type_main-medium">Регистрация</p>
 
                     <Input
@@ -72,7 +73,7 @@ export function Register() {
                         extraClass="mt-6"
                     />
 
-                    <Button htmlType="button" type="primary" size="medium" extraClass="mt-6" onClick={ submitForm } >
+                    <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6">
                         Зарегистрироваться
                     </Button>
                 </form>

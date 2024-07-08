@@ -1,6 +1,5 @@
 
 import { API_URL_LOGIN } from '../../utils/config';
-import { Navigate } from "react-router-dom";
 
 export const SET_LOGIN_INFO = "SET_LOGIN_INFO";
 

@@ -55,7 +55,7 @@ function BurgerConstructor() {
     
             dispatch(takeOrder(order, bun))
         } else {
-            alert("Выберите ингридиенты!")
+            alert("Для оформления заказа, авторизуйтесь")
         }
     }
 

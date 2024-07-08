@@ -8,21 +8,13 @@ import { getIngredientsRequest } from '../../services/actions/ingredients-action
 
 function IngredientPage() {
     const param = useParams();
-    const dispatch = useDispatch();
-    const success = useSelector(store => store.getIngredients.isSuccess)
-    const loading = useSelector(store => store.getIngredients.isLoading)
-
-    if (!success) {
-        dispatch(getIngredientsRequest())
-    }
-
     const item = useSelector(store => store.getIngredients.data.find(item => item._id === param.id))
     
     return (
             <div className={ styles.ingredient }>
                 <p className={ styles.ingredient__text }>Детали ингридиента</p>
 
-                { loading ? <p>Loading...</p> : <IngredientDetails item={ item } /> }
+                { !item ? <p>Loading...</p> : <IngredientDetails item={ item } /> }
             </div>
     )
 }

@@ -41,21 +41,16 @@ export function Profile() {
         }
     }
 
+    const initialForm = () => {
+        setLogin(initialEmail);
+        setName(initialName);
+    }
+
     const sendForm = (e) => {
-        switch (e.target.innerText) {
-            case "Сохранить": {
-                dispatch(updateLogin(nameRef.current.value, loginRef.current.value));
-                break;
-            }
-            case "Отмена": {
-                setLogin(initialEmail);
-                setName(initialName);
-                break;
-            }
-            default: {
-                return null;
-            }
-        }
+        e.preventDefault();
+        
+        dispatch(updateLogin(nameRef.current.value, loginRef.current.value));
+        alert("Успешно")
     }
 
     const onChange = e => {
@@ -77,7 +72,7 @@ export function Profile() {
                 изменить свои персональные данные</p>
             </div>
 
-            <form className="ml-15">
+            <form className="ml-15" onSubmit={ sendForm }>
                 <Input
                     placeholder={'Имя'}
                     onChange={e => setName(e.target.value)}
@@ -117,15 +112,15 @@ export function Profile() {
                     icon="EditIcon"
                 />
 
-                <div className={styles.profile_buttons}>
-                    <Button htmlType="button" type="primary" size="medium" onClick={sendForm}>
+                { (login !== initialEmail || name !== initialName) && <div className={ styles.profile_buttons }>
+                    <Button htmlType="submit" type="primary" size="medium">
                         Сохранить
                     </Button>
                     
-                    <Button htmlType="button" type="secondary" size="medium" extraClass="ml-6" onClick={sendForm}>
+                    <Button htmlType="submit" type="secondary" size="medium" extraClass="ml-6" onClick={ initialForm }>
                         Отмена
                     </Button>
-                </div>
+                </div> }
             </form>
         </main>
     )

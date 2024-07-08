@@ -24,14 +24,15 @@ export function ResetPassword() {
         setPassword(e.target.value)
     }
 
-    const submitForm = () => {
+    const submitForm = (e) => {
+        e.preventDefault()
         dispatch( resetRequest(code, password) )
     }
 
     return (
         <main className={ styles.main_reset_password }>
             <div className={ styles.reset_password_container }>
-                <form>
+                <form onSubmit={ submitForm }>
                     <p className="text text_type_main-medium">Восстановление пароля</p>
 
                     <PasswordInput
@@ -55,7 +56,7 @@ export function ResetPassword() {
                         value={code}
                     />
 
-                    <Button htmlType="button" type="primary" size="medium" extraClass="mt-6" onClick={ submitForm }>
+                    <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6">
                         Сохранить
                     </Button>
                 </form>

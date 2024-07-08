@@ -21,6 +21,7 @@ export function takeOrder(order, bun) {
         // Запросик на заказ (с помощью постмена)
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", localStorage.getItem("accessToken"));
 
         var raw = JSON.stringify({
             "ingredients": ingredientId
@@ -50,7 +51,6 @@ export function takeOrder(order, bun) {
             dispatch({
                 type: TAKE_ORDER_FAILED
             })
-            console.log(ingredientId)
             console.log(err)
         })
 
