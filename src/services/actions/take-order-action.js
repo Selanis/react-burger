@@ -19,18 +19,19 @@ export function takeOrder(order, bun) {
         })
 
         // Запросик на заказ (с помощью постмена)
-        var myHeaders = new Headers();
+        const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", localStorage.getItem("accessToken"));
 
-        var raw = JSON.stringify({
-        "ingredients": ingredientId
+        const raw = JSON.stringify({
+            "ingredients": ingredientId
         });
 
-        var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
         };
 
         fetch(API_URL_ORDER, requestOptions)
@@ -50,7 +51,6 @@ export function takeOrder(order, bun) {
             dispatch({
                 type: TAKE_ORDER_FAILED
             })
-            console.log(ingredientId)
             console.log(err)
         })
 

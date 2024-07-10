@@ -17,6 +17,7 @@ function BurgerConstructor() {
         order: store.constructorReducer.order,
         bun: store.constructorReducer.bun,
     }), shallowEqual)
+    const user = useSelector(state => state.loginInfo.userInfo);
     
     const totalPriceCounter = useMemo( () => { return totalPrice(order, bun) }, [order, bun] )
 
@@ -46,12 +47,22 @@ function BurgerConstructor() {
     }
 
     const takeOrderButton = () => {
-        dispatch({
-            type: SHOW_MODAL,
-            item: <OrderDetails />
-        });
+        if (user) {
+            dispatch({
+                type: SHOW_MODAL,
+                item: <OrderDetails />
+            });
+    
+            dispatch(takeOrder(order, bun))
+        } else {
+            alert("Для оформления заказа, авторизуйтесь")
+        }
+    }
 
-        dispatch(takeOrder(order, bun))
+    const orderButton = () => {
+        (order.length && bun) ? (
+            takeOrderButton()
+        ) : alert("Выберите ингридиенты!")
     }
 
     return (
@@ -114,11 +125,7 @@ function BurgerConstructor() {
             <div className={`mt-10 pr-4 pl-4 ${styles.constructor__take_order}`}>
                 <p className="text text_type_digits-medium pr-10">{ totalPriceCounter } <CurrencyIcon type="primary" /></p>
 
-                <Button htmlType="button" type="primary" size="large" onClick={ () => {
-                    (order.length && bun) ? (
-                        takeOrderButton()
-                    ) : alert("Выберите ингридиенты!")
-                } } >
+                <Button htmlType="button" type="primary" size="large" onClick={ orderButton } >
                     Оформить заказ
                 </Button>
             </div>

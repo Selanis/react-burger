@@ -2,7 +2,7 @@ import { SHOW_MODAL, HIDE_MODAL } from '../actions/modal-action'
 
 const initialState = {
     isModal: false,
-    modalItem: null,
+    modalItem: <></>,
     title: ''
 }
 
