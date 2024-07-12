@@ -1,4 +1,4 @@
-import React, { FunctionComponent, SyntheticEvent } from 'react';
+import React, { FormEvent, FunctionComponent } from 'react';
 
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './forgot-password.module.css'
@@ -19,7 +19,7 @@ export const ForgotPassword: FunctionComponent = () => {
         alert('Icon Click Callback')
     }
 
-    const submitForm = (e: SyntheticEvent) => {
+    const submitForm = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         dispatch( passwordRequest(email) )
     }

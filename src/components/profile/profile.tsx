@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent, FunctionComponent } from "react";
+import React, { BaseSyntheticEvent, ChangeEvent, FormEvent, FunctionComponent } from "react";
 
 import styles from './profile.module.css'
 import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -47,14 +47,14 @@ export const Profile: FunctionComponent = () => {
         setName(initialName);
     }
 
-    const sendForm = (e: BaseSyntheticEvent) => {
+    const sendForm = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
         dispatch(updateLogin(nameRef.current.value, loginRef.current.value));
         alert("Успешно")
     }
 
-    const onChange = (e: BaseSyntheticEvent) => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value)
     }
 

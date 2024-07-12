@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent, FunctionComponent, SyntheticEvent } from "react";
+import React, { ChangeEvent, FormEvent, FunctionComponent } from "react";
 import { Link, Navigate } from "react-router-dom";
 
 import styles from "./login.module.css";
@@ -21,11 +21,11 @@ export const Login: FunctionComponent = () => {
         alert('Icon Click Callback')
     }
 
-    const onChange = (e: BaseSyntheticEvent) => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value)
     }
 
-    const formSubmit = async (e: SyntheticEvent) => {
+    const formSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch( loginRequest(login, password) )
     }

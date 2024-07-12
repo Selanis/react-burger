@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent, FunctionComponent } from "react";
+import React, { ChangeEvent, FormEvent, FunctionComponent } from "react";
 
 import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './reset-password.module.css'
@@ -21,11 +21,11 @@ export const ResetPassword: FunctionComponent = () => {
         alert('Icon Click Callback')
     }
 
-    const onChange = (e: BaseSyntheticEvent) => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value)
     }
 
-    const submitForm = (e: BaseSyntheticEvent) => {
+    const submitForm = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         dispatch( resetRequest(code, password) )
     }

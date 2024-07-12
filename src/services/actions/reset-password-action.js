@@ -1,4 +1,5 @@
-import { API_URL_RESET_PASSWORD } from '../../utils/config';
+import { checkResponse } from '../../utils/checkResponse';
+import { BASE_API_URL } from '../../utils/config';
 
 export const RESET_SUCCESS = 'RESET_SUCCESS';
 export const RESET_REQUEST = 'RESET_REQUIRED';
@@ -27,13 +28,8 @@ export function resetRequest(token, password) {
             redirect: 'follow'
         };
 
-        fetch(API_URL_RESET_PASSWORD, requestOptions)
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка ${res.status}`);
-        })
+        fetch(`${BASE_API_URL}/password-reset/reset`, requestOptions)
+        .then(checkResponse)
         .then((res) => {
             if (res.success) {
                 dispatch({

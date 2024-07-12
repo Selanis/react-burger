@@ -1,5 +1,6 @@
 
-import { API_URL_LOGIN } from '../../utils/config';
+import { checkResponse } from '../../utils/checkResponse';
+import { BASE_API_URL } from '../../utils/config';
 
 export const SET_LOGIN_INFO = "SET_LOGIN_INFO";
 
@@ -30,13 +31,8 @@ export function loginRequest(email, password) {
             redirect: 'follow'
         };
 
-        fetch(API_URL_LOGIN, requestOptions)
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка ${res.status}`);
-        })
+        fetch(`${BASE_API_URL}/auth/login`, requestOptions)
+        .then(checkResponse)
         .then((res) => {
             if (res.success) {
                 dispatch({

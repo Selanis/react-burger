@@ -1,5 +1,5 @@
 import styles from './register.module.css';
-import React, { BaseSyntheticEvent, FunctionComponent } from "react";
+import React, { ChangeEvent, FormEvent, FunctionComponent } from "react";
 import { Link, Navigate } from "react-router-dom";
 
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -22,11 +22,11 @@ export const Register: FunctionComponent = () => {
         alert('Icon Click Callback')
     }
 
-    const onChange = (e: BaseSyntheticEvent) => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value)
     }
 
-    const submitForm = (e: BaseSyntheticEvent) => {
+    const submitForm = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         dispatch( registerRequest(login, name, password) )
     }

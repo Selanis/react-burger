@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom'
-import React, { BaseSyntheticEvent, FunctionComponent, ReactNode, SyntheticEvent } from 'react'
+import React, { BaseSyntheticEvent, FunctionComponent, ReactNode } from 'react'
 import styles from './modal-overlay.module.css'
 import { useDispatch } from 'react-redux';
 

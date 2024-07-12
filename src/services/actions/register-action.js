@@ -1,4 +1,5 @@
-import { API_URL_REGISTER } from '../../utils/config';
+import { checkResponse } from '../../utils/checkResponse';
+import { BASE_API_URL } from '../../utils/config';
 import { SET_LOGIN_INFO } from './login-action'
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
@@ -29,13 +30,8 @@ export function registerRequest(email, name, password) {
             redirect: 'follow'
         };
 
-        fetch(API_URL_REGISTER, requestOptions)
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка ${res.status}`);
-        })
+        fetch(`${BASE_API_URL}/auth/register`, requestOptions)
+        .then(checkResponse)
         .then((res) => {
             if (res.success) {
                 dispatch({
