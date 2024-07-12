@@ -1,23 +1,23 @@
 import styles from './burger-ingredients.module.css';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerCard } from '../burger-card/burger-card';
 import { SET_INGREDIENT_TAB } from '../../services/actions/ingredients-actions';
+import { FunctionComponent, SyntheticEvent } from 'react';
+import { IRootState } from '../../utils/types';
 
-function BurgerIngredients() {
-    const { data, current } = useSelector((store) => ({
-        data: store.getIngredients.data,
-        current: store.getIngredients.currentTab
-    }), shallowEqual)
-    const dispatch = useDispatch()
+const BurgerIngredients: FunctionComponent = () => {
+    const data = useSelector((store: IRootState) => store.getIngredients.data)
+    const current = useSelector((store: IRootState) => store.getIngredients.currentTab)
+    const dispatch = useDispatch<any>()
 
-    const scrollTabs = (e) => {
-        const positionContainer = document.getElementById('ingredients_container').getBoundingClientRect().y
+    const scrollTabs = (e: SyntheticEvent) => {
+        const positionContainer = document.getElementById('ingredients_container')!.getBoundingClientRect().y
         
-        const positionBun = positionContainer - document.getElementById("bunsTab").getBoundingClientRect().y
-        const positionSouce = positionContainer - document.getElementById("souceTab").getBoundingClientRect().y
-        const positionMain = positionContainer - document.getElementById("mainTab").getBoundingClientRect().y
+        const positionBun = positionContainer - document.getElementById("bunsTab")!.getBoundingClientRect().y
+        const positionSouce = positionContainer - document.getElementById("souceTab")!.getBoundingClientRect().y
+        const positionMain = positionContainer - document.getElementById("mainTab")!.getBoundingClientRect().y
 
         switch (Math.min(
             Math.abs(positionBun), 
@@ -50,19 +50,23 @@ function BurgerIngredients() {
                 break;
         }
     }
+
+    const tabClick = () => {
+
+    }
     
     return (
         <section>
             <h1 className="text text_type_main-large mt-10 " id='text'>Соберите бургер</h1>
 
             <div className={ styles.tabs_ingredient }>
-                <Tab value="one" active={current === 'one'}>
+                <Tab value="one" active={current === 'one'} onClick={ tabClick }>
                     Булки
                 </Tab>
-                <Tab value="two" active={current === 'two'}>
+                <Tab value="two" active={current === 'two'} onClick={ tabClick }>
                     Соусы
                 </Tab>
-                <Tab value="three" active={current === 'three'}>
+                <Tab value="three" active={current === 'three'} onClick={ tabClick }>
                     Начинки
                 </Tab>
             </div>
@@ -72,7 +76,7 @@ function BurgerIngredients() {
 
                 <div className={`${styles.ingredients_grid} pl-4 pr-4`}>
                     { data.map( (item) => (
-                        item.type === "bun" && <BurgerCard item={ item } counter={ 1 } key={item._id} />
+                        item.type === "bun" && <BurgerCard item={ item } key={item._id} />
                     ) ) }
                     
                 </div>

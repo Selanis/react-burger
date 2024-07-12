@@ -1,13 +1,13 @@
 import styles from './order-details.module.css'
 import image from '../../images/done-image.svg'
-import { shallowEqual, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { FunctionComponent } from 'react'
+import { IRootState } from '../../utils/types'
 
-function OrderDetails() {
-    const { orderDetails, isSuccess, isError } = useSelector(state => ({
-        orderDetails: state.takeOrderReducer.orderInfo,
-        isSuccess: state.takeOrderReducer.isOrderSuccess,
-        isError: state.takeOrderReducer.isOrderFailed
-    }), shallowEqual)
+const OrderDetails: FunctionComponent = () => {
+    const orderDetails = useSelector((state: IRootState) => state.takeOrderReducer.orderInfo);
+    const isSuccess = useSelector((state: IRootState) => state.takeOrderReducer.isOrderSuccess)
+    const isError = useSelector((state: IRootState) => state.takeOrderReducer.isOrderFailed)
 
     return (
         <div className={ styles.order_container }>

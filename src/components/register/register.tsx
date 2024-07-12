@@ -1,31 +1,32 @@
 import styles from './register.module.css';
-import React from "react";
+import React, { BaseSyntheticEvent, FunctionComponent } from "react";
 import { Link, Navigate } from "react-router-dom";
 
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from 'react-redux';
 import { registerRequest } from '../../services/actions/register-action';
+import { IRootState } from '../../utils/types';
 
 
-export function Register() {
-    const dispatch = useDispatch();
-    const userInfo = useSelector(state => state.loginInfo.userInfo ? state.loginInfo.userInfo.email : null)
+export const Register: FunctionComponent = () => {
+    const dispatch = useDispatch<any>();
+    const userInfo = useSelector((state: IRootState) => state.loginInfo.userInfo ? state.loginInfo.userInfo.email : null)
 
-    const [login, setLogin] = React.useState('')
-    const [name, setName] = React.useState('')
-    const [password, setPassword] = React.useState('')
+    const [login, setLogin] = React.useState<string>('')
+    const [name, setName] = React.useState<string>('')
+    const [password, setPassword] = React.useState<string>('')
 
-    const inputRef = React.useRef(null)
+    const inputRef = React.useRef<HTMLInputElement>(null!)
     const onIconClick = () => {
         setTimeout(() => inputRef.current.focus(), 0)
         alert('Icon Click Callback')
     }
 
-    const onChange = e => {
+    const onChange = (e: BaseSyntheticEvent) => {
         setPassword(e.target.value)
     }
 
-    const submitForm = (e) => {
+    const submitForm = (e: BaseSyntheticEvent) => {
         e.preventDefault()
         dispatch( registerRequest(login, name, password) )
     }
@@ -50,6 +51,8 @@ export function Register() {
                         size={'default'}
                         extraClass="mt-6"
                         value={name}
+                        onPointerEnterCapture={ undefined }
+                        onPointerLeaveCapture={ undefined }
                     />
                 
                     <Input
@@ -63,6 +66,8 @@ export function Register() {
                         size={'default'}
                         extraClass="mt-6"
                         value={login}
+                        onPointerEnterCapture={ undefined }
+                        onPointerLeaveCapture={ undefined }
                     />
 
                     <PasswordInput

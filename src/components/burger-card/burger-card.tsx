@@ -1,22 +1,23 @@
 import styles from './burger-card.module.css'
-import { useMemo } from 'react';
+import { FunctionComponent, useMemo } from 'react';
 import { useDrag } from "react-dnd";
 
-import { ingredientType } from '../../utils/types'
+import { IRootState, TIngredientType } from '../../utils/types'
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientDetails } from '../ingredient-details/ingredient-details' 
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SHOW_MODAL } from '../../services/actions/modal-action';
 import { Link } from 'react-router-dom';
 
-function BurgerCard(props) {
-    const { item } = props;
-    const dispatch = useDispatch()
+type TBurgerProps = {
+    readonly item: TIngredientType;
+}
 
-    const { order, bun } = useSelector((store) => ({
-        order: store.constructorReducer.order,
-        bun: store.constructorReducer.bun
-    }), shallowEqual)
+const BurgerCard: FunctionComponent<TBurgerProps> = (props) => {
+    const dispatch = useDispatch()
+    const { item } = props;
+    const order = useSelector((store: IRootState) => store.constructorReducer.order);
+    const bun = useSelector((store: IRootState) => store.constructorReducer.bun);
 
     const [ , dragRef] = useDrag({
         type: "ingredient",
@@ -54,10 +55,5 @@ function BurgerCard(props) {
         
     )
 }
-
-BurgerCard.propTypes = {
-    item: ingredientType.isRequired,
-}
-
 
 export { BurgerCard }

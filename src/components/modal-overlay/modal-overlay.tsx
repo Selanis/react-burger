@@ -1,21 +1,24 @@
 import ReactDOM from 'react-dom'
-import React from 'react'
+import React, { BaseSyntheticEvent, FunctionComponent, ReactNode, SyntheticEvent } from 'react'
 import styles from './modal-overlay.module.css'
 import { useDispatch } from 'react-redux';
-import { PropTypes } from "prop-types";
 
 import { HIDE_MODAL } from '../../services/actions/modal-action'
 import { useNavigate } from 'react-router-dom';
 
-const modalRoot = document.getElementById('modals')
+type TModalOverlayProps = {
+    children: ReactNode
+}
 
-function ModalOverlay(props) {
-    const dispatch = useDispatch();
+const modalRoot = document.getElementById('modals')!
+
+const ModalOverlay: FunctionComponent<TModalOverlayProps> = (props) => {
+    const dispatch = useDispatch<any>();
     const navigate = useNavigate()
 
-    const handleClose = (e) => {
+    const handleClose = (e: BaseSyntheticEvent) => {
         
-        if (e.target.tagName === "SECTION" | e.target.tagName === "svg") {
+        if (e.target.tagName === "SECTION" || e.target.tagName === "svg") {
             navigate("/");
             dispatch({
                 type: HIDE_MODAL,
@@ -23,8 +26,8 @@ function ModalOverlay(props) {
         }
     }
 
-    const escapeDownFunc = (event) => {
-        if (event.code === 'Escape') { 
+    const escapeDownFunc = (e: KeyboardEvent) => {
+        if (e.code === 'Escape') { 
             navigate("/");
             dispatch({
                 type: HIDE_MODAL,
@@ -48,10 +51,6 @@ function ModalOverlay(props) {
             { props.children }
         </section>
     ), modalRoot)
-}
-
-ModalOverlay.propTypes = {
-    children: PropTypes.element.isRequired,
 }
 
 export { ModalOverlay }

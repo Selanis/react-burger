@@ -2,8 +2,9 @@ import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-dev
 import { Link, useLocation } from "react-router-dom";
 
 import styles from "./app-header.module.css";
+import { FunctionComponent } from "react";
 
-function AppHeader() {
+const AppHeader: FunctionComponent = () => {
     const location = useLocation();
     
     return (
@@ -21,7 +22,9 @@ function AppHeader() {
                     </li>
                 </ul>
 
-                <Logo className={ styles.logo } />
+                <div className={ styles.logo }>
+                    <Logo />
+                </div>
 
                 <Link className={`pt-4 pr-5 pl-5 pb-4 ${styles.profile}` } to="/profile">
                     <ProfileIcon type={ location.pathname === "/profile" ? "primary" : "secondary" } />
@@ -29,7 +32,6 @@ function AppHeader() {
                 </Link>
                 
             </nav>
-            
         </header>
     )
 }

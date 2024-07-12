@@ -1,5 +1,6 @@
+import { TIngredientType, IOrderContainer } from "./types"
 
-export const totalPrice = (order, bun)=> {
+export const totalPrice = (order: IOrderContainer[], bun: TIngredientType): number => {
     if (order.length && bun) {
         const orderPrice = order.reduce((acc, item) => acc + item.ingredient.price, 0)
         const bunPrice = bun.price * 2
