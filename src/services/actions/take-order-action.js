@@ -1,4 +1,5 @@
-import { API_URL_ORDER } from '../../utils/config';
+import { checkResponse } from '../../utils/checkResponse';
+import { BASE_API_URL } from '../../utils/config';
 import { CLEAR_CONSTRUCTOR } from './constructor-action';
 
 export const TAKE_ORDER_REQUEST = 'TAKE_ORDER_REQUEST';
@@ -34,13 +35,8 @@ export function takeOrder(order, bun) {
             redirect: 'follow'
         };
 
-        fetch(API_URL_ORDER, requestOptions)
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка ${res.status}`);
-        })
+        fetch(`${BASE_API_URL}/orders`, requestOptions)
+        .then(checkResponse)
         .then((res) => {
             dispatch({
                 type: TAKE_ORDER_SUCCESS,

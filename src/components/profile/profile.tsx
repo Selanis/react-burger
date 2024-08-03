@@ -1,27 +1,28 @@
-import React from "react";
+import React, { BaseSyntheticEvent, ChangeEvent, FormEvent, FunctionComponent } from "react";
 
 import styles from './profile.module.css'
 import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, updateLogin } from "../../services/actions/token-action";
+import { IRootState } from "../../utils/types";
 
-export function Profile() {
-    const dispatch = useDispatch();
+export const Profile: FunctionComponent = () => {
+    const dispatch = useDispatch<any>();
     
-    const initialName = useSelector(state => state.loginInfo.userInfo.name)
-    const initialEmail = useSelector(state => state.loginInfo.userInfo.email)
-    const [login, setLogin] = React.useState(initialEmail);
-    const [name, setName] = React.useState(initialName);
+    const initialName = useSelector((state: IRootState) => state.loginInfo.userInfo.name)
+    const initialEmail = useSelector((state: IRootState) => state.loginInfo.userInfo.email)
+    const [login, setLogin] = React.useState<string>(initialEmail);
+    const [name, setName] = React.useState<string>(initialName);
 
-    const [editName, setEditName] = React.useState(true)
-    const [editLogin, setEditLogin] = React.useState(true)
+    const [editName, setEditName] = React.useState<boolean>(true)
+    const [editLogin, setEditLogin] = React.useState<boolean>(true)
 
-    const [password, setPassword] = React.useState('123456')
+    const [password, setPassword] = React.useState<string>('123456')
 
-    const loginRef = React.useRef(null);
-    const nameRef = React.useRef(null);
-    const onIconClick = (e) => {
+    const loginRef = React.useRef<HTMLInputElement>(null!);
+    const nameRef = React.useRef<HTMLInputElement>(null!);
+    const onIconClick = (e: BaseSyntheticEvent) => {
         const typeInput = e.target.parentNode.parentNode.parentNode.querySelector("label").innerText;
 
         switch (typeInput) {
@@ -46,14 +47,14 @@ export function Profile() {
         setName(initialName);
     }
 
-    const sendForm = (e) => {
+    const sendForm = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
         dispatch(updateLogin(nameRef.current.value, loginRef.current.value));
         alert("Успешно")
     }
 
-    const onChange = e => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value)
     }
 
@@ -86,6 +87,8 @@ export function Profile() {
                     disabled={editName}
                     extraClass=""
                     value={name}
+                    onPointerEnterCapture={ undefined }
+                    onPointerLeaveCapture={ undefined }
                 />
 
                 <Input
@@ -101,6 +104,8 @@ export function Profile() {
                     extraClass="mt-6"
                     disabled={editLogin}
                     value={login}
+                    onPointerEnterCapture={ undefined }
+                    onPointerLeaveCapture={ undefined }
                 />
 
                 <PasswordInput

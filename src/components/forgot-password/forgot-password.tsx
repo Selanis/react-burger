@@ -1,24 +1,25 @@
-import React from 'react';
+import React, { FormEvent, FunctionComponent } from 'react';
 
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './forgot-password.module.css'
 import { Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_FORGOT_INITIAL, passwordRequest } from '../../services/actions/forgot-password-action';
+import { IRootState } from '../../utils/types';
 
-export function ForgotPassword() {
-    const dispatch = useDispatch();
-    const success = useSelector(state => state.forgotReducer.response ? state.forgotReducer.response.success : false)
+export const ForgotPassword: FunctionComponent = () => {
+    const dispatch = useDispatch<any>();
+    const success = useSelector((state: IRootState) => state.forgotReducer.response ? state.forgotReducer.response.success : false)
 
-    const [email, setEmail] = React.useState('')
+    const [email, setEmail] = React.useState<string>('')
 
-    const inputRef = React.useRef(null)
+    const inputRef = React.useRef<HTMLInputElement>(null!)
     const onIconClick = () => {
         setTimeout(() => inputRef.current.focus(), 0)
         alert('Icon Click Callback')
     }
 
-    const submitForm = (e) => {
+    const submitForm = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         dispatch( passwordRequest(email) )
     }
@@ -46,6 +47,8 @@ export function ForgotPassword() {
                         size={'default'}
                         extraClass="mt-6"
                         value={email}
+                        onPointerEnterCapture={ undefined }
+                        onPointerLeaveCapture={ undefined }
                     />
 
                     <Button htmlType="submit" type="primary" size="medium" extraClass="mt-6">

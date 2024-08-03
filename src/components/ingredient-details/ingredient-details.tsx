@@ -1,8 +1,13 @@
 import styles from './ingredient-details.module.css'
 
-import { ingredientType } from '../../utils/types'
+import { TIngredientType } from '../../utils/types'
+import { FunctionComponent } from 'react'
 
-function IngredientDetails(props) {
+type TIngredientDetails = {
+    item: TIngredientType
+}
+
+const IngredientDetails: FunctionComponent<TIngredientDetails> = (props) => {
     const { image_large, name, proteins, fat, carbohydrates, calories } = props.item
 
     return (
@@ -34,10 +39,6 @@ function IngredientDetails(props) {
             </div>
         </div>
     )
-}
-
-IngredientDetails.propTypes = {
-    item: ingredientType.isRequired
 }
 
 export {IngredientDetails}

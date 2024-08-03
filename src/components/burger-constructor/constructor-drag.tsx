@@ -1,21 +1,25 @@
 import styles from './constructor-drag.module.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { useRef } from 'react';
+import { FunctionComponent, useRef } from 'react';
 import { useDrop, useDrag } from 'react-dnd';
-import { PropTypes } from "prop-types";
 
 import { REMOVE_INGREDIENT, moveItem } from '../../services/actions/constructor-action'
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ingredientType } from '../../utils/types';
+import { IOrderContainer, IRootState } from '../../utils/types';
 
-function DragItem(props) {
+type TDragItemProps = {
+    readonly item: IOrderContainer;
+    readonly index: number;
+}
+
+const DragItem: FunctionComponent<TDragItemProps> = (props) => {
     const { item, index } = props
     const id = item.ingredient._id
 
-    const dispatch = useDispatch()
-    const order = useSelector(state => state.constructorReducer.order)
+    const dispatch = useDispatch<any>()
+    const order = useSelector((state: IRootState) => state.constructorReducer.order)
 
-    const ref = useRef(null)
+    const ref = useRef<HTMLDivElement>(null)
     const [{ handlerId }, drop] = useDrop({
         accept: "ingredient-constructor",
         collect(monitor) {
@@ -23,7 +27,7 @@ function DragItem(props) {
             handlerId: monitor.getHandlerId(),
         }
         },
-        hover(item, monitor) {
+        hover(item: any, monitor) {
             if (!ref.current) {
                 return
             }
@@ -37,7 +41,7 @@ function DragItem(props) {
             const hoverMiddleY =
                 (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
             const clientOffset = monitor.getClientOffset()
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top
+            const hoverClientY = clientOffset!.y - hoverBoundingRect.top
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
                 return
             }
@@ -78,11 +82,6 @@ function DragItem(props) {
             />
         </div>
     )
-}
-
-DragItem.propTypes = {
-    index: PropTypes.number.isRequired,
-    item: ingredientType.isRequired
 }
 
 export { DragItem }

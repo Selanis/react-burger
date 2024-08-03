@@ -1,14 +1,18 @@
 import styles from './modal.module.css'
-import { PropTypes } from "prop-types";
 
 import { ModalOverlay } from '../modal-overlay/modal-overlay';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { HIDE_MODAL } from '../../services/actions/modal-action'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { FunctionComponent, ReactNode } from 'react';
 
+type TModalProps = {
+    title?: string,
+    children?: ReactNode
+}
 
-function Modal(props) {
+const Modal: FunctionComponent<TModalProps> = (props) => {
     const { children, title } = props
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -31,11 +35,6 @@ function Modal(props) {
             </div>
         </ModalOverlay>
     )
-}
-
-Modal.propTypes = {
-    children: PropTypes.element,
-    title: PropTypes.string
 }
 
 export { Modal }

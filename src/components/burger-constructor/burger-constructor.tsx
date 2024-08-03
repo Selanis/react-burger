@@ -1,6 +1,6 @@
 import styles from './burger-constructor.module.css';
-import { useMemo } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { FunctionComponent, useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
 
 import { ConstructorElement, Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -10,14 +10,13 @@ import { SHOW_MODAL } from '../../services/actions/modal-action';
 import { DragItem } from './constructor-drag';
 import { takeOrder } from '../../services/actions/take-order-action';
 import { totalPrice } from '../../utils/totalPrice';
+import { IOrderContainer, IRootState, TIngredientType } from '../../utils/types';
 
-function BurgerConstructor() {
-    const dispatch = useDispatch()
-    const { order, bun } = useSelector(store => ({
-        order: store.constructorReducer.order,
-        bun: store.constructorReducer.bun,
-    }), shallowEqual)
-    const user = useSelector(state => state.loginInfo.userInfo);
+const BurgerConstructor: FunctionComponent = () => {
+    const dispatch = useDispatch<any>();
+    const order = useSelector((store: IRootState) => store.constructorReducer.order);
+    const bun = useSelector((store: IRootState) => store.constructorReducer.bun);
+    const user = useSelector((store: IRootState) => store.loginInfo.userInfo);
     
     const totalPriceCounter = useMemo( () => { return totalPrice(order, bun) }, [order, bun] )
 
@@ -26,7 +25,7 @@ function BurgerConstructor() {
         collect: monitor => ({
             isHover: monitor.isOver(),
         }),
-        drop(item) {
+        drop(item: any) {
             dispatch(
                 item.type === "bun" ? {
                     type: CHANGE_BUN,
@@ -40,7 +39,7 @@ function BurgerConstructor() {
         border: "2px solid #4C4CFF"
     } : {}
 
-    const dragItem = (orderItem, index) => {
+    const dragItem = (orderItem: IOrderContainer, index: number) => {
         return (
             <DragItem item={ orderItem } key={ orderItem.key } index={index} />
         )

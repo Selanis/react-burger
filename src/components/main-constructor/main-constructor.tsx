@@ -6,12 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BurgerIngredients } from '../burger-ingredients/burger-ingredients';
 import { BurgerConstructor } from '../burger-constructor/burger-constructor'; 
 import { Outlet } from "react-router-dom";
-import { useEffect } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { SET_RESET_INITIAL } from "../../services/actions/reset-password-action";
+import { IRootState } from "../../utils/types";
 
-export function MainConstructor() {
+export const MainConstructor:FunctionComponent = () => {
     const dispatch = useDispatch()
-    const isLoading = useSelector(state => state.getIngredients.isLoading)
+    const isLoading = useSelector((state: IRootState) => state.getIngredients.isLoading)
 
     useEffect(() => {
         dispatch({

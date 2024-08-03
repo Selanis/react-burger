@@ -1,4 +1,5 @@
-import { API_URL_FORGOT_PASSWORD } from '../../utils/config';
+import { checkResponse } from '../../utils/checkResponse';
+import { BASE_API_URL } from '../../utils/config';
 
 export const PASSWORD_REQUEST = 'PASSWORD_REQUEST';
 export const PASSWORD_SUCCESS = 'PASSWORD_SUCCESS';
@@ -27,13 +28,8 @@ export function passwordRequest(email) {
             type: PASSWORD_REQUEST
         })
 
-        fetch(API_URL_FORGOT_PASSWORD, requestOptions)
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка ${res.status}`);
-        })
+        fetch(`${BASE_API_URL}/password-reset`, requestOptions)
+        .then(checkResponse)
         .then((res) => {
             if (res.success) {
                 dispatch({

@@ -1,5 +1,6 @@
 
-import { API_URL_TOKEN, API_URL_USER, API_URL_LOGOUT } from '../../utils/config';
+import { checkResponse } from '../../utils/checkResponse';
+import { BASE_API_URL } from '../../utils/config';
 import { SET_LOGIN_INFO, SET_LOGIN_INITIAL } from './login-action';
 
 export const SET_AUTHORIZATION = 'SET_AUTHTORIZATION';
@@ -29,13 +30,8 @@ export const updateToken = (afterError) => {
             redirect: 'follow'
         };
 
-        fetch(API_URL_TOKEN, requestOptions)
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка ${res.status}`);
-        })
+        fetch(`${BASE_API_URL}/auth/token`, requestOptions)
+        .then(checkResponse)
         .then((res) => {
             if (res.success) {
                 dispatch({
@@ -75,13 +71,8 @@ export const getUserInfo = () => {
             redirect: 'follow'
         };
 
-        fetch(API_URL_USER, requestOptions)
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка ${res.status}`);
-        })
+        fetch(`${BASE_API_URL}/auth/user`, requestOptions)
+        .then(checkResponse)
         .then((res) => {
             if (res.success) {
                 dispatch({
@@ -130,13 +121,8 @@ export const logout = () => {
         };
 
 
-        fetch(API_URL_LOGOUT, requestOptions)
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка ${res.status}`);
-        })
+        fetch(`${BASE_API_URL}/auth/logout`, requestOptions)
+        .then(checkResponse)
         .then((res) => {
             if (res.success) {
                 dispatch({
@@ -179,13 +165,8 @@ export const updateLogin = (name, login) => {
             redirect: 'follow'
         };
 
-        fetch(API_URL_USER, requestOptions)
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка ${res.status}`);
-        })
+        fetch(`${BASE_API_URL}/auth/user`, requestOptions)
+        .then(checkResponse)
         .then((res) => {
             if (res.success) {
                 dispatch({
