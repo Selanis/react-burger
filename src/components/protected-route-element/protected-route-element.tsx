@@ -1,7 +1,6 @@
 import { FunctionComponent, ReactElement } from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../utils/hooks";
 import { Navigate, useLocation } from "react-router-dom";
-import { IRootState } from "../../utils/types";
 
 type TProtectedProps = {
     onlyUnAuth?: boolean,
@@ -9,8 +8,8 @@ type TProtectedProps = {
 }
 
 const Protected: FunctionComponent<TProtectedProps> = ({ onlyUnAuth = false, component }) => {
-    const isAuthChecked = useSelector((store: IRootState) => store.tokenReducer.isRequest);
-    const user = useSelector((store: IRootState) => store.loginInfo.userInfo);
+    const isAuthChecked = useSelector((store) => store.tokenReducer.isRequest);
+    const user = useSelector((store) => store.loginInfo.userInfo);
     const location = useLocation();
 
     if (isAuthChecked) {

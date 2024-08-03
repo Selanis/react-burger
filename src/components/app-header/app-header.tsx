@@ -16,10 +16,10 @@ const AppHeader: FunctionComponent = () => {
                         <p className={`pl-2 text ${ location.pathname !== "/" && "text_color_inactive" }`}>Конструктор</p>
                     </Link>
 
-                    <li className={`pt-4 pr-5 pl-5 pb-4 ml-2 ${styles.selectButton}` }>
-                        <ListIcon type="secondary" />
-                        <p className="pl-2 text text_color_inactive">Лента заказов</p>
-                    </li>
+                    <Link to="/feed" className={`pt-4 pr-5 pl-5 pb-4 ml-2 ${styles.selectButton}` }>
+                        <ListIcon type={ location.pathname === "/feed" ? "primary" : "secondary" } />
+                        <p className={`pl-2 text ${ location.pathname !== "/feed" && "text_color_inactive" }`}>Лента заказов</p>
+                    </Link>
                 </ul>
 
                 <div className={ styles.logo }>

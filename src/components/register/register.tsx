@@ -3,14 +3,13 @@ import React, { ChangeEvent, FormEvent, FunctionComponent } from "react";
 import { Link, Navigate } from "react-router-dom";
 
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/hooks';
 import { registerRequest } from '../../services/actions/register-action';
-import { IRootState } from '../../utils/types';
 
 
 export const Register: FunctionComponent = () => {
-    const dispatch = useDispatch<any>();
-    const userInfo = useSelector((state: IRootState) => state.loginInfo.userInfo ? state.loginInfo.userInfo.email : null)
+    const dispatch = useDispatch();
+    const userInfo = useSelector((state) => state.loginInfo.userInfo ? state.loginInfo.userInfo.email : null)
 
     const [login, setLogin] = React.useState<string>('')
     const [name, setName] = React.useState<string>('')

@@ -17,6 +17,10 @@
     flex-direction: column;
 }
 
+.profile__inactive {
+    color: #8585AD !important;
+}
+
 .profile_tabs a {
     line-height: 64px;
 }

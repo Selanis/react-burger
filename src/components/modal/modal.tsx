@@ -2,10 +2,10 @@ import styles from './modal.module.css'
 
 import { ModalOverlay } from '../modal-overlay/modal-overlay';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { HIDE_MODAL } from '../../services/actions/modal-action'
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../utils/hooks';
 import { useNavigate } from 'react-router-dom';
 import { FunctionComponent, ReactNode } from 'react';
+import { hideModalAction } from '../../services/actions/modal-action';
 
 type TModalProps = {
     title?: string,
@@ -23,10 +23,8 @@ const Modal: FunctionComponent<TModalProps> = (props) => {
                 <div className={ styles.modal__close }>
                     <p className={ styles.modal__text }>{ title }</p>
                     <CloseIcon onClick={ () => {
-                        navigate("/");
-                        dispatch({
-                            type: HIDE_MODAL,
-                        })
+                        navigate(-1);
+                        dispatch(hideModalAction())
                     } } type="primary" />
                 </div>
 

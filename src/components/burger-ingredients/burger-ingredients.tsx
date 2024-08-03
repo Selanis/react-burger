@@ -1,16 +1,15 @@
 import styles from './burger-ingredients.module.css';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/hooks';
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerCard } from '../burger-card/burger-card';
-import { SET_INGREDIENT_TAB } from '../../services/actions/ingredients-actions';
 import { FunctionComponent, SyntheticEvent } from 'react';
-import { IRootState } from '../../utils/types';
+import { setIngredientTabAction } from '../../services/actions/ingredients-actions';
 
 const BurgerIngredients: FunctionComponent = () => {
-    const data = useSelector((store: IRootState) => store.getIngredients.data)
-    const current = useSelector((store: IRootState) => store.getIngredients.currentTab)
-    const dispatch = useDispatch<any>()
+    const data = useSelector((store) => store.getIngredients.data)
+    const current = useSelector((store) => store.getIngredients.currentTab)
+    const dispatch = useDispatch()
 
     const scrollTabs = (e: SyntheticEvent) => {
         const positionContainer = document.getElementById('ingredients_container')!.getBoundingClientRect().y
@@ -25,28 +24,16 @@ const BurgerIngredients: FunctionComponent = () => {
             Math.abs(positionMain)
         )) {
             case Math.abs(positionBun): 
-                dispatch({
-                    type: SET_INGREDIENT_TAB,
-                    currentTab: "one"
-                })
+                dispatch(setIngredientTabAction("one"))
                 break;
             case Math.abs(positionSouce): 
-                dispatch({
-                    type: SET_INGREDIENT_TAB,
-                    currentTab: "two"
-                })
+            dispatch(setIngredientTabAction("two"))
                 break;
             case Math.abs(positionMain): 
-                dispatch({
-                    type: SET_INGREDIENT_TAB,
-                    currentTab: "three"
-                })
+            dispatch(setIngredientTabAction("three"))
                 break;
             default:
-                dispatch({
-                    type: SET_INGREDIENT_TAB,
-                    currentTab: "one"
-                })
+                dispatch(setIngredientTabAction("one"))
                 break;
         }
     }

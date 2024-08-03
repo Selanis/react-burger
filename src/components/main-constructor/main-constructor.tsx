@@ -1,23 +1,20 @@
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import styles from  './main-constructor.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/hooks';
 
 import { BurgerIngredients } from '../burger-ingredients/burger-ingredients';
 import { BurgerConstructor } from '../burger-constructor/burger-constructor'; 
 import { Outlet } from "react-router-dom";
 import { FunctionComponent, useEffect } from "react";
-import { SET_RESET_INITIAL } from "../../services/actions/reset-password-action";
-import { IRootState } from "../../utils/types";
+import { setResetInitialAction } from "../../services/actions/reset-password-action";
 
-export const MainConstructor:FunctionComponent = () => {
+export const MainConstructor: FunctionComponent = () => {
     const dispatch = useDispatch()
-    const isLoading = useSelector((state: IRootState) => state.getIngredients.isLoading)
+    const isLoading = useSelector((state) => state.getIngredients.isRequest)
 
     useEffect(() => {
-        dispatch({
-            type: SET_RESET_INITIAL
-        })
+        dispatch(setResetInitialAction())
     })
 
     return (

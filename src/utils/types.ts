@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+
 
 export type TIngredientType = {
     readonly _id: string;
@@ -15,53 +15,42 @@ export type TIngredientType = {
     readonly __v: number;
 }
 
+export type TGetOrderInfo = {
+    _id: string;
+    ingredients: string[];
+    owner: string;
+    status: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    number: number;
+    __v: number;
+}
+
+export type TOrderSocket = {
+    createdAt: string;
+    ingredients: string[];
+    name: string;
+    number: number;
+    status: string;
+    updatedAt: string;
+    _id: string;
+}
+
+export type TOrderInfo = {
+    name: string,
+    order: {
+        number: number
+    },
+    success: boolean
+}
+
 export interface IOrderContainer {
     ingredient: TIngredientType,
     key: string
 }
 
-export interface IRootState {
-    modalReducer: {
-        modalItem: ReactNode,
-        isModal: boolean,
-        title: string
-    },   
-    constructorReducer: {
-        order: Array<IOrderContainer>,
-        bun: TIngredientType
-    },
-    loginInfo: {
-        readonly userInfo: {
-            readonly email: string,
-            readonly name: string
-        }
-    },
-    getIngredients: {
-        readonly data: Array<TIngredientType>,
-        currentTab: string,
-        isLoading: boolean
-    },
-    forgotReducer : {
-        readonly response: {
-            success: boolean
-        }
-    },
-    takeOrderReducer: {
-        isOrderSuccess: boolean,
-        isOrderFailed: boolean,
-        readonly orderInfo: {
-            success: boolean,
-            order: {
-                number: number
-            }
-        }
-    },
-    tokenReducer : {
-        isRequest: boolean
-    },
-    resetReducer: {
-        readonly response: {
-            success: boolean
-        }
-    }
+export type TUserInfo = {
+    name: string;
+    email: string;
 }
