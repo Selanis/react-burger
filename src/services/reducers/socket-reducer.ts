@@ -30,14 +30,16 @@ export const wsReducer = (state = initialState, action: TWsConnectionAction) => 
         return {
             ...state,
             error: action.payload,
-            wsConnected: false
+            wsConnected: false,
+            data: null
         };
 
     case WS_CONNECTION_CLOSED:
         return {
             ...state,
             error: undefined,
-            wsConnected: false
+            wsConnected: false,
+            data: null
         };
 
     case WS_GET_MESSAGE:
