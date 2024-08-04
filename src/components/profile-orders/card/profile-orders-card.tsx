@@ -11,7 +11,7 @@ import { showModalAction } from "../../../services/actions/modal-action";
 import { FeedNumber } from "../../feed-number/feed-number";
 import { getStatus } from "../../../utils/getStatus";
 
-type TCardFeed = {
+export type TCardFeed = {
     order: TOrderSocket;
 }
 
@@ -19,8 +19,6 @@ export const CardProfile: FunctionComponent<TCardFeed> = (props) => {
     const data = useSelector(store => store.getIngredients.data);
     const dispatch = useDispatch();
     const { name, number, ingredients, createdAt, status } = props.order;
-
-    const price: number = data ? orderPrice(ingredients, data) : 0;
     
     const goOrderNumber = () => {
         dispatch(showModalAction(<FeedNumber number={number} />, ''))
@@ -44,7 +42,7 @@ export const CardProfile: FunctionComponent<TCardFeed> = (props) => {
                         }
                     </div>
 
-                    <h2 className={styles.cardFeed__price}>{price}&nbsp;<CurrencyIcon type="primary" /></h2>
+                    <h2 className={styles.cardFeed__price}>{data && orderPrice(ingredients, data)}&nbsp;<CurrencyIcon type="primary" /></h2>
                 </div>
             </div>
         </Link>

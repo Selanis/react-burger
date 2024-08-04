@@ -4,6 +4,11 @@ import { TIngredientType } from '../../utils/types';
 import { GET_INGREDIENTS_FAILED, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_REQUEST, SET_INGREDIENT_TAB } from '../constants';
 import { AppDispatch } from '../types';
 
+type TResponseType = {
+    success: boolean;
+    data: TIngredientType[];
+}
+
 export interface IGetIngredientsFailedAction {
     readonly type: typeof GET_INGREDIENTS_FAILED;
 }
@@ -27,7 +32,7 @@ export type TGetIngredientsAction = IGetIngredientsFailedAction |
     IGetIngredientsSuccessAction |
     ISetIngredientAction
 
-export const getIngredientSuccessAction = (res: any): TGetIngredientsAction => ({
+export const getIngredientSuccessAction = (res: TResponseType): TGetIngredientsAction => ({
     type: GET_INGREDIENTS_SUCCESS,
     data: res.data
 });

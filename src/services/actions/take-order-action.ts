@@ -1,9 +1,30 @@
 import { checkResponse } from '../../utils/checkResponse';
 import { BASE_API_URL } from '../../utils/config';
 import { IOrderContainer, TIngredientType, TOrderInfo } from '../../utils/types';
-import { CLEAR_CONSTRUCTOR, TAKE_ORDER_FAILED, TAKE_ORDER_REQUEST, TAKE_ORDER_SUCCESS } from '../constants';
+import { TAKE_ORDER_FAILED, TAKE_ORDER_REQUEST, TAKE_ORDER_SUCCESS } from '../constants';
 import { AppDispatch } from '../types';
 import { clearConstructorAction } from './constructor-action';
+
+type TResponseType = {
+    success: boolean;
+    name: string;
+    order: {
+        createdAt: string;
+        ingrediets: string[];
+        name: string;
+        number: number;
+        owner: {
+            name: string;
+            email: string;
+            updatedAt: string;
+            createdAt: string;
+        };
+        price: number;
+        status: string;
+        updatedAt: string;
+        _id: string;
+    }
+}
 
 export interface ITakeOrderRequestAction {
     readonly type: typeof TAKE_ORDER_REQUEST;
@@ -26,7 +47,7 @@ export const takeOrderRequestAction = (): TTakeOrderAction => ({
     type: TAKE_ORDER_REQUEST,
 });
 
-export const takeOrderSuccessAction = (res: any): TTakeOrderAction => ({
+export const takeOrderSuccessAction = (res: TResponseType): TTakeOrderAction => ({
     type: TAKE_ORDER_SUCCESS,
     data: res
 });

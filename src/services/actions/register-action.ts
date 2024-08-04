@@ -1,8 +1,16 @@
 import { checkResponse } from '../../utils/checkResponse';
 import { BASE_API_URL } from '../../utils/config';
+import { TUserInfo } from '../../utils/types';
 import { REGISTER_FAILED, REGISTER_REQUEST, REGISTER_SUCCESS, SET_REGISTER_INITIAL } from '../constants'
 import { AppDispatch } from '../types';
 import { setLoginInfoAction } from './login-action';
+
+type TResponseType = {
+    success: boolean;
+    accessToken: string;
+    refreshToken: string;
+    user: TUserInfo;
+}
 
 export interface IRegisterFailedAction {
     readonly type: typeof REGISTER_FAILED;
@@ -29,7 +37,7 @@ export const registerFailedAction = (): TRegisterAction => ({
     type: REGISTER_FAILED,
 });
 
-export const registerSuccessAction = (res: any): TRegisterAction => ({
+export const registerSuccessAction = (res: TResponseType): TRegisterAction => ({
     type: REGISTER_SUCCESS,
 });
 

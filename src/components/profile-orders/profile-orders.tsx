@@ -3,14 +3,15 @@ import styles from './profile-orders.module.css';
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "../../utils/hooks";
 import { logout } from "../../services/actions/token-action";
-import { WS_CONNECTION_START } from "../../services/constants";
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../../services/constants";
 import { CardProfile } from "./card/profile-orders-card";
+import { TOrderSocket } from "../../utils/types";
 
 export const ProfileOrders: FunctionComponent = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     const user = useSelector(store => store.loginInfo.userInfo);
-    const data = useSelector(store => store.wsReducer.data)?.orders.reverse();
+    const data = useSelector(store => store.wsReducer.data)?.orders;
 
     const handleLogout = () => {
         dispatch(logout())
@@ -19,8 +20,10 @@ export const ProfileOrders: FunctionComponent = () => {
     useEffect(
         () => {
             if (user) {
-                dispatch( { type: WS_CONNECTION_START } );
+                dispatch( { type: WS_CONNECTION_START, wsUrl: `wss://norma.nomoreparties.space/orders?token=${localStorage.getItem('accessToken')?.slice(7)}` } );
             }
+
+            return (() => { dispatch( { type: WS_CONNECTION_CLOSED } ) })
         },
         [user, dispatch]
     );
@@ -38,7 +41,7 @@ export const ProfileOrders: FunctionComponent = () => {
 
             <div className={styles.profileOrderCards}>
                 { 
-                    data && data.map(item => <CardProfile order={item} key={item._id} />)
+                    data && data.map((item: TOrderSocket) => <CardProfile order={item} key={item._id} />)
                 }
             </div>
         </main>

@@ -9,10 +9,8 @@ import { TResetAction } from "../actions/reset-password-action";
 import { TTakeOrderAction } from "../actions/take-order-action";
 import { TSetAuthorizationAction } from "../actions/token-action";
 import { TModalAction } from "../actions/modal-action";
-import { Action, ActionCreator, Dispatch } from "redux";
 import { TWsConnectionAction } from "../middleware/socket-middleware";
 import { TGetOrderInfoAction } from "../actions/get-order-action";
-import { TWsAllConnectionAction } from "../middleware/socket-middleware-all";
 
 export type TRequestReducer = {
     isSuccess: boolean;
@@ -50,8 +48,7 @@ export type TApplicationActions = TConstructorAction |
     TSetAuthorizationAction |
     TModalAction |
     TWsConnectionAction | 
-    TGetOrderInfoAction |
-    TWsAllConnectionAction;
+    TGetOrderInfoAction;
 
 
 export type RootState = ReturnType<typeof store.getState>;

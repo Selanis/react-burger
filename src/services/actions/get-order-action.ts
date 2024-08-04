@@ -4,6 +4,10 @@ import { TGetOrderInfo } from "../../utils/types";
 import { GET_ORDER_INFO_FAILED, GET_ORDER_INFO_REQUEST, GET_ORDER_INFO_SUCCESS } from "../constants"
 import { AppDispatch } from "../types"
 
+type TReponseType = {
+    success: true;
+    orders: TGetOrderInfo[];
+}
 export interface IGetOrderInfoSuccessAction {
     readonly type: typeof GET_ORDER_INFO_SUCCESS;
     readonly order: TGetOrderInfo[];
@@ -21,7 +25,7 @@ export type TGetOrderInfoAction = IGetOrderInfoFailedAction |
     IGetOrderInfoRequestAction |
     IGetOrderInfoSuccessAction;
 
-export const getOrderInfoSuccessAction = (res: any): TGetOrderInfoAction => ({
+export const getOrderInfoSuccessAction = (res: TReponseType): TGetOrderInfoAction => ({
     type: GET_ORDER_INFO_SUCCESS,
     order: res.orders
 });

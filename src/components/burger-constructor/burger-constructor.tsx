@@ -9,7 +9,7 @@ import { addIngredient, changeBunAction } from '../../services/actions/construct
 import { DragItem } from './constructor-drag';
 import { takeOrder } from '../../services/actions/take-order-action';
 import { totalPrice } from '../../utils/totalPrice';
-import { IOrderContainer } from '../../utils/types';
+import { IOrderContainer, TIngredientType } from '../../utils/types';
 import { showModalAction } from '../../services/actions/modal-action';
 
 const BurgerConstructor: FunctionComponent = () => {

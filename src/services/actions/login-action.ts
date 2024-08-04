@@ -1,8 +1,16 @@
 
 import { checkResponse } from '../../utils/checkResponse';
 import { BASE_API_URL } from '../../utils/config';
+import { TUserInfo } from '../../utils/types';
 import { LOGIN_FAILED, LOGIN_REQUEST, LOGIN_SUCCESS, SET_LOGIN_INFO, SET_LOGIN_INITIAL } from '../constants';
 import { AppDispatch } from '../types';
+
+type TResponseType = {
+    success: boolean;
+    accessToken: string;
+    refreshToken: string;
+    user: TUserInfo;
+}
 
 export interface ILoginRequestAction {
     readonly type: typeof LOGIN_REQUEST;
@@ -47,7 +55,7 @@ export const loginRequestAction = (): TLoginAction => ({
     type: LOGIN_REQUEST,
 });
 
-export const setLoginInfoAction = (res: any): TLoginAction => ({
+export const setLoginInfoAction = (res: TResponseType): TLoginAction => ({
     type: SET_LOGIN_INFO,
     user: res.user,
     authorization: true,

@@ -5,6 +5,7 @@ import { updateToken } from "../actions/token-action";
 
 export interface IWsConnectionStartAction {
     readonly type: typeof WS_CONNECTION_START;
+    readonly wsUrl: string;
 }
 
 export interface IWsConnectionSuccessAction {
@@ -37,16 +38,16 @@ export type TWsConnectionAction = IWsConnectionClosedAction |
     IWsGetMessageAction |
     IWsSendMessageAction;
 
-export const socketMiddleware = (wsUrl: string): Middleware => {
+export const socketMiddleware = (): Middleware => {
     return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
         let socket: WebSocket | null = null;
 
-    return next => (action: TApplicationActions) => {
+    return next => (action: TWsConnectionAction) => {
         const { dispatch } = store;
         const { type } = action;
         
         if (type === 'WS_CONNECTION_START') {
-            socket = new WebSocket(wsUrl);
+            socket = new WebSocket(action.wsUrl);
         }
         if (socket) {
             socket.onopen = event => {

@@ -3,8 +3,12 @@ import { TResetAction } from "../actions/reset-password-action";
 import { RESET_FAILED, RESET_SUCCESS, RESET_REQUEST,SET_RESET_INITIAL } from "../constants";
 import { TRequestReducer } from "../types";
 
+type TResponseType = {
+    success: boolean;
+    message: string;
+}
 interface IResetInitialState extends TRequestReducer {
-    response: any;
+    response: TResponseType | null;
 }
 
 const initialState: IResetInitialState = {

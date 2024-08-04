@@ -3,9 +3,14 @@ import { BASE_API_URL } from '../../utils/config';
 import { RESET_FAILED, RESET_REQUEST, RESET_SUCCESS, SET_RESET_INITIAL } from '../constants';
 import { AppDispatch } from '../types';
 
+type TResponseType = {
+    success: boolean;
+    message: string;
+}
+
 export interface IResetSuccessAction {
     readonly type: typeof RESET_SUCCESS;
-    readonly response: any;
+    readonly response: TResponseType;
 }
 
 export interface IResetRequiredAction {
@@ -25,7 +30,7 @@ export type TResetAction = IResetSuccessAction |
     IResetRequiredAction |
     ISetResetInitialAction;
 
-export const resetSuccessAction = (res: any): TResetAction => ({
+export const resetSuccessAction = (res: TResponseType): TResetAction => ({
     type: RESET_SUCCESS,
     response: res
 });
