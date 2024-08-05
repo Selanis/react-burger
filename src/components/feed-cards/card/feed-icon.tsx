@@ -13,7 +13,7 @@ export const FeedIcon: FunctionComponent<TFeedIconProps> = (props) => {
     const { itemId, more } = props;
     const image = data.find(item => item._id === itemId)
 
-    const imageSource = image!.image_mobile
+    const imageSource = image?.image_mobile
 
     return (
         <div className={styles.cardFeed__border}>

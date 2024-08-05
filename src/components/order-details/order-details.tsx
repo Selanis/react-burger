@@ -10,7 +10,7 @@ const OrderDetails: FunctionComponent = () => {
 
     return (
         <div className={ styles.order_container }>
-            { isSuccess && <h1 className={ `text text_type_digits-large ${ styles.order_num }` }>{ orderDetails!.order.number }</h1> }
+            { isSuccess && <h1 className={ `text text_type_digits-large ${ styles.order_num }` }>{ orderDetails?.order.number }</h1> }
             { isError && <h1 className={ `text text_type_main-large ${ styles.order_num }` }>👾Ошибка👾</h1> }
             <h2 className="text text_type_main-medium mt-8">идентификатор заказа</h2>
             <img src={ image } className='mt-15' alt="done" />
