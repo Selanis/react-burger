@@ -3,14 +3,13 @@ import React, { ChangeEvent, FormEvent, FunctionComponent } from "react";
 import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './reset-password.module.css'
 import { Link, Navigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/hooks';
 import { resetRequest } from '../../services/actions/reset-password-action';
-import { IRootState } from "../../utils/types";
 
 export const ResetPassword: FunctionComponent = () => {
-    const dispatch = useDispatch<any>();
-    const success = useSelector((state: IRootState) => state.resetReducer.response ? state.resetReducer.response.success : false);
-    const forgotSuccess = useSelector((state: IRootState) => state.forgotReducer.response ? state.forgotReducer.response.success : false);
+    const dispatch = useDispatch();
+    const success = useSelector((state) => state.resetReducer.response ? state.resetReducer.response.success : false);
+    const forgotSuccess = useSelector((state) => state.forgotReducer.isSuccess);
 
     const [code, setCode] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')

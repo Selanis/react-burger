@@ -2,12 +2,13 @@ import styles from './burger-card.module.css'
 import { FunctionComponent, useMemo } from 'react';
 import { useDrag } from "react-dnd";
 
-import { IRootState, TIngredientType } from '../../utils/types'
+import { TIngredientType } from '../../utils/types'
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientDetails } from '../ingredient-details/ingredient-details' 
-import { useDispatch, useSelector } from 'react-redux';
-import { SHOW_MODAL } from '../../services/actions/modal-action';
+import { useDispatch, useSelector } from '../../utils/hooks';
 import { Link } from 'react-router-dom';
+import { SHOW_MODAL } from '../../services/constants';
+import { showModalAction } from '../../services/actions/modal-action';
 
 type TBurgerProps = {
     readonly item: TIngredientType;
@@ -16,8 +17,8 @@ type TBurgerProps = {
 const BurgerCard: FunctionComponent<TBurgerProps> = (props) => {
     const dispatch = useDispatch()
     const { item } = props;
-    const order = useSelector((store: IRootState) => store.constructorReducer.order);
-    const bun = useSelector((store: IRootState) => store.constructorReducer.bun);
+    const order = useSelector((store) => store.constructorReducer.order);
+    const bun = useSelector((store) => store.constructorReducer.bun);
 
     const [ , dragRef] = useDrag({
         type: "ingredient",
@@ -37,11 +38,7 @@ const BurgerCard: FunctionComponent<TBurgerProps> = (props) => {
     return (
         <Link to={`ingredients/${item._id}`}>
             <div className={ styles.burger_main } onClick={ () => {
-                dispatch({
-                    type: SHOW_MODAL,
-                    item: <IngredientDetails item={ item } />,
-                    title: "Детали ингредиента"
-                })
+                dispatch(showModalAction(<IngredientDetails item={ item } />, "Детали ингредиента"))
             } } ref={ dragRef }>
             
 

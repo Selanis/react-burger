@@ -1,10 +1,10 @@
 import ReactDOM from 'react-dom'
 import React, { BaseSyntheticEvent, FunctionComponent, ReactNode } from 'react'
 import styles from './modal-overlay.module.css'
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../utils/hooks';
 
-import { HIDE_MODAL } from '../../services/actions/modal-action'
 import { useNavigate } from 'react-router-dom';
+import { hideModalAction } from '../../services/actions/modal-action';
 
 type TModalOverlayProps = {
     children: ReactNode
@@ -13,25 +13,20 @@ type TModalOverlayProps = {
 const modalRoot = document.getElementById('modals')!
 
 const ModalOverlay: FunctionComponent<TModalOverlayProps> = (props) => {
-    const dispatch = useDispatch<any>();
-    const navigate = useNavigate()
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleClose = (e: BaseSyntheticEvent) => {
         
         if (e.target.tagName === "SECTION" || e.target.tagName === "svg") {
-            navigate("/");
-            dispatch({
-                type: HIDE_MODAL,
-            })
+            navigate(-1)
+            dispatch(hideModalAction())
         }
     }
 
     const escapeDownFunc = (e: KeyboardEvent) => {
         if (e.code === 'Escape') { 
-            navigate("/");
-            dispatch({
-                type: HIDE_MODAL,
-            });
+            navigate(-1)
+            dispatch(hideModalAction());
         }
     }
 

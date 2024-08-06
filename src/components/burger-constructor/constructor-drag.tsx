@@ -1,11 +1,11 @@
 import styles from './constructor-drag.module.css'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/hooks';
 import { FunctionComponent, useRef } from 'react';
 import { useDrop, useDrag } from 'react-dnd';
 
-import { REMOVE_INGREDIENT, moveItem } from '../../services/actions/constructor-action'
+import { moveItem, removeIngredientAction } from '../../services/actions/constructor-action'
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { IOrderContainer, IRootState } from '../../utils/types';
+import { IOrderContainer } from '../../utils/types';
 
 type TDragItemProps = {
     readonly item: IOrderContainer;
@@ -16,8 +16,8 @@ const DragItem: FunctionComponent<TDragItemProps> = (props) => {
     const { item, index } = props
     const id = item.ingredient._id
 
-    const dispatch = useDispatch<any>()
-    const order = useSelector((state: IRootState) => state.constructorReducer.order)
+    const dispatch = useDispatch()
+    const order = useSelector((state) => state.constructorReducer.order)
 
     const ref = useRef<HTMLDivElement>(null)
     const [{ handlerId }, drop] = useDrop({
@@ -72,13 +72,7 @@ const DragItem: FunctionComponent<TDragItemProps> = (props) => {
                 text={ item.ingredient.name }
                 price={ item.ingredient.price }
                 thumbnail={ item.ingredient.image }
-                handleClose={ () => {
-                    dispatch({
-                        type: REMOVE_INGREDIENT,
-                        key: item.key
-                    })
-                    }
-                }
+                handleClose={ () => { dispatch(removeIngredientAction(item.key)) } }
             />
         </div>
     )

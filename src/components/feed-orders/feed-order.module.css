@@ -1,0 +1,39 @@
+.feedOrders {
+    margin-left: 60px;
+    width: 100%;
+}
+
+.feedOrders__orders {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 36px;
+}
+
+.feedOrders__orders div {
+    width: 100%;
+}
+
+.feedOrders__numbers {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 160px;
+    flex-wrap: wrap;
+}
+
+.feedOrders__numbers div {
+    
+}
+
+.feedDone {
+    composes: text text_type_digits-default from global;
+    color: #00CCCC;
+}
+
+.feed__bigNum {
+    composes: text text_type_digits-large from global;
+    text-shadow: 0px 4px 32px  #3333FF80, 
+                0px 0px 8px  #3333FF40,
+                0px 0px 16px  #3333FF40;
+}

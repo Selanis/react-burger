@@ -4,13 +4,12 @@ import { Link, Navigate } from "react-router-dom";
 import styles from "./login.module.css";
 import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { loginRequest } from "../../services/actions/login-action";
-import { useDispatch, useSelector } from "react-redux";
-import { IRootState } from "../../utils/types";
+import { useDispatch, useSelector } from '../../utils/hooks';
 
 export const Login: FunctionComponent = () => {
-    const dispatch = useDispatch<any>();
+    const dispatch = useDispatch();
 
-    const userInfo = useSelector((state: IRootState) => state.loginInfo.userInfo ? state.loginInfo.userInfo.email : null)
+    const userInfo = useSelector((state) => state.loginInfo.userInfo ? state.loginInfo.userInfo.email : null)
 
     const [login, setLogin] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')

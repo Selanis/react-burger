@@ -1,22 +1,22 @@
 import styles from './burger-constructor.module.css';
 import { FunctionComponent, useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/hooks';
 import { useDrop } from "react-dnd";
 
 import { ConstructorElement, Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { OrderDetails } from '../order-details/order-details';
-import { CHANGE_BUN, addIngredient } from '../../services/actions/constructor-action'
-import { SHOW_MODAL } from '../../services/actions/modal-action';
+import { addIngredient, changeBunAction } from '../../services/actions/constructor-action'
 import { DragItem } from './constructor-drag';
 import { takeOrder } from '../../services/actions/take-order-action';
 import { totalPrice } from '../../utils/totalPrice';
-import { IOrderContainer, IRootState, TIngredientType } from '../../utils/types';
+import { IOrderContainer, TIngredientType } from '../../utils/types';
+import { showModalAction } from '../../services/actions/modal-action';
 
 const BurgerConstructor: FunctionComponent = () => {
-    const dispatch = useDispatch<any>();
-    const order = useSelector((store: IRootState) => store.constructorReducer.order);
-    const bun = useSelector((store: IRootState) => store.constructorReducer.bun);
-    const user = useSelector((store: IRootState) => store.loginInfo.userInfo);
+    const dispatch = useDispatch();
+    const order = useSelector((store) => store.constructorReducer.order);
+    const bun = useSelector((store) => store.constructorReducer.bun);
+    const user = useSelector((store) => store.loginInfo.userInfo);
     
     const totalPriceCounter = useMemo( () => { return totalPrice(order, bun) }, [order, bun] )
 
@@ -27,10 +27,7 @@ const BurgerConstructor: FunctionComponent = () => {
         }),
         drop(item: any) {
             dispatch(
-                item.type === "bun" ? {
-                    type: CHANGE_BUN,
-                    ingredient: item
-                } : addIngredient(item)
+                item.type === "bun" ? changeBunAction(item) : addIngredient(item)
             );
         },
     });
@@ -47,12 +44,9 @@ const BurgerConstructor: FunctionComponent = () => {
 
     const takeOrderButton = () => {
         if (user) {
-            dispatch({
-                type: SHOW_MODAL,
-                item: <OrderDetails />
-            });
+            dispatch(showModalAction(<OrderDetails />, ''));
     
-            dispatch(takeOrder(order, bun))
+            dispatch(takeOrder(order, bun!))
         } else {
             alert("Для оформления заказа, авторизуйтесь")
         }

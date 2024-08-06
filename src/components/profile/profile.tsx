@@ -2,16 +2,16 @@ import React, { BaseSyntheticEvent, ChangeEvent, FormEvent, FunctionComponent } 
 
 import styles from './profile.module.css'
 import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "../../utils/hooks";
 import { logout, updateLogin } from "../../services/actions/token-action";
-import { IRootState } from "../../utils/types";
 
 export const Profile: FunctionComponent = () => {
-    const dispatch = useDispatch<any>();
+    const dispatch = useDispatch();
+    const location = useLocation();
     
-    const initialName = useSelector((state: IRootState) => state.loginInfo.userInfo.name)
-    const initialEmail = useSelector((state: IRootState) => state.loginInfo.userInfo.email)
+    const initialName = useSelector((state) => state.loginInfo.userInfo!.name)
+    const initialEmail = useSelector((state) => state.loginInfo.userInfo!.email)
     const [login, setLogin] = React.useState<string>(initialEmail);
     const [name, setName] = React.useState<string>(initialName);
 
@@ -65,8 +65,8 @@ export const Profile: FunctionComponent = () => {
     return (
         <main className={ styles.profile_main }>
             <div className={ styles.profile_tabs }>
-                <Link to="/profile" className="text text_type_main-medium">Профиль</Link>
-                <Link to="/profile/order" className="text text_type_main-medium text_color_inactive">История заказов</Link>
+                <Link to="/profile" className={`text text_type_main-medium ${location.pathname !== "/profile" && styles.profile__inactive}`}>Профиль</Link>
+                <Link to="/profile/orders" className={`text text_type_main-medium ${location.pathname !== "/profile/orders" && styles.profile__inactive}`}>История заказов</Link>
                 <a className="text text_type_main-medium text_color_inactive" onClick={ handleLogout }>Выход</a>
 
                 <p className="text text_type_main-default text_color_inactive mt-20">В этом разделе вы можете

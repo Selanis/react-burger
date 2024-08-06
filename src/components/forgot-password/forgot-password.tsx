@@ -3,13 +3,12 @@ import React, { FormEvent, FunctionComponent } from 'react';
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './forgot-password.module.css'
 import { Link, Navigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { SET_FORGOT_INITIAL, passwordRequest } from '../../services/actions/forgot-password-action';
-import { IRootState } from '../../utils/types';
+import { useDispatch, useSelector } from '../../utils/hooks';
+import { forgotInitialAction, passwordRequest } from '../../services/actions/forgot-password-action';
 
 export const ForgotPassword: FunctionComponent = () => {
-    const dispatch = useDispatch<any>();
-    const success = useSelector((state: IRootState) => state.forgotReducer.response ? state.forgotReducer.response.success : false)
+    const dispatch = useDispatch();
+    const success = useSelector((store) => store.forgotReducer.isSuccess);
 
     const [email, setEmail] = React.useState<string>('')
 
@@ -25,9 +24,7 @@ export const ForgotPassword: FunctionComponent = () => {
     }
 
     React.useEffect(() => {
-        dispatch({
-            type: SET_FORGOT_INITIAL
-        })
+        dispatch( forgotInitialAction() ) 
     }, [dispatch])
 
     return (
