@@ -13,7 +13,7 @@ type TWSState = {
 const initialState: TWSState = {
     wsConnected: false,
     messages: [],
-
+    error: undefined,
     data: null
 };
 
