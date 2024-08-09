@@ -36,6 +36,7 @@ export const takeOrderReducer = (state=initialState, action: TTakeOrderAction): 
             return {
                 ...state,
                 isRequest: false,
+                isSuccess: false,
                 isFailed: true,
                 orderInfo: null
             }
