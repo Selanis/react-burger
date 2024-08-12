@@ -16,7 +16,7 @@ const BurgerConstructor: FunctionComponent = () => {
     const dispatch = useDispatch();
     const order = useSelector((store) => store.constructorReducer.order);
     const bun = useSelector((store) => store.constructorReducer.bun);
-    const user = useSelector((store) => store.loginInfo.userInfo);
+    // const user = useSelector((store) => store.loginInfo.userInfo);
     
     const totalPriceCounter = useMemo( () => { return totalPrice(order, bun) }, [order, bun] )
 
@@ -43,13 +43,13 @@ const BurgerConstructor: FunctionComponent = () => {
     }
 
     const takeOrderButton = () => {
-        if (user) {
+        // if (user) {
             dispatch(showModalAction(<OrderDetails />, ''));
     
             dispatch(takeOrder(order, bun!))
-        } else {
-            alert("Для оформления заказа, авторизуйтесь")
-        }
+        // } else {
+        //     alert("Для оформления заказа, авторизуйтесь")
+        // }
     }
 
     const orderButton = () => {
